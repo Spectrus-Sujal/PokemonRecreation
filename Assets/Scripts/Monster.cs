@@ -1,18 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Monster
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] int maxHelath;
+    [SerializeField] int speed;
+    [SerializeField] private int defense;
+    [SerializeField] private int attack;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] int currentHelath;
+
+    private Move[] moves;
 }
