@@ -5,6 +5,7 @@ using UnityEngine;
 public class MonsterDatabase : MonoBehaviour
 {
     MovesDatabase MD;
+    private Move m;
 
     public List<Monster> MonstersList = new List<Monster>();
 
@@ -16,13 +17,13 @@ public class MonsterDatabase : MonoBehaviour
 
     void Start()
     {
-        MD = transform.GetComponent<MovesDatabase>();
+        MD = GetComponent<MovesDatabase>();
         addMonsters();
     }
 
     void addMonsters()
     {
-        Monster Treeko = new Monster("Treeko",
+        Monster Treeko = new Monster("Treeko", Move.Attribute.Grass,
             20, 8, 10, 7,
             MD.MovesList[(int)MovesDatabase.Moves.Pound],
             MD.MovesList[(int)MovesDatabase.Moves.Empty],
@@ -31,7 +32,7 @@ public class MonsterDatabase : MonoBehaviour
 
         MonstersList.Add(Treeko);
 
-        Monster Torchic = new Monster("Torchic",
+        Monster Torchic = new Monster("Torchic", Move.Attribute.Fire,
             18, 10, 8, 9,
             MD.MovesList[(int)MovesDatabase.Moves.Pound],
             MD.MovesList[(int)MovesDatabase.Moves.Empty],

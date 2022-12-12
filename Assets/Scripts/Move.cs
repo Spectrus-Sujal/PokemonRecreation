@@ -6,7 +6,7 @@ public class Move
 {
     public enum Attribute
     {
-        Fire, Water, Grass, Normal, Fight
+        Fire, Water, Grass, Normal
     }
 
     public enum attackType
