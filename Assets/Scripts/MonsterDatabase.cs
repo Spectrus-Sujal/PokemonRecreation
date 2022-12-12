@@ -15,7 +15,7 @@ public class MonsterDatabase : MonoBehaviour
         Torchic
     }
 
-    void Start()
+    void Awake()
     {
         MD = GetComponent<MovesDatabase>();
         addMonsters();
@@ -23,22 +23,31 @@ public class MonsterDatabase : MonoBehaviour
 
     void addMonsters()
     {
-        Monster Treeko = new Monster("Treeko", Move.Attribute.Grass,
+        Monster Treeko = new Monster("Treeko", AttributeDatabase.Attribute.Grass,
             20, 8, 10, 7,
-            MD.MovesList[(int)MovesDatabase.Moves.Pound],
+            MD.MovesList[(int)MovesDatabase.Moves.RazorLeaf],
             MD.MovesList[(int)MovesDatabase.Moves.Empty],
             MD.MovesList[(int)MovesDatabase.Moves.Empty],
             MD.MovesList[(int)MovesDatabase.Moves.Empty]);
 
         MonstersList.Add(Treeko);
 
-        Monster Torchic = new Monster("Torchic", Move.Attribute.Fire,
+        Monster Torchic = new Monster("Torchic", AttributeDatabase.Attribute.Fire,
             18, 10, 8, 9,
-            MD.MovesList[(int)MovesDatabase.Moves.Pound],
+            MD.MovesList[(int)MovesDatabase.Moves.Ember],
             MD.MovesList[(int)MovesDatabase.Moves.Empty],
             MD.MovesList[(int)MovesDatabase.Moves.Empty],
             MD.MovesList[(int)MovesDatabase.Moves.Empty]);
         
         MonstersList.Add(Torchic);
+
+        Monster Mudkip = new Monster("Mudkip", AttributeDatabase.Attribute.Water,
+            18, 10, 8, 9,
+            MD.MovesList[(int)MovesDatabase.Moves.Ember],
+            MD.MovesList[(int)MovesDatabase.Moves.Empty],
+            MD.MovesList[(int)MovesDatabase.Moves.Empty],
+            MD.MovesList[(int)MovesDatabase.Moves.Empty]);
+        
+        MonstersList.Add(Mudkip);
     }
 }

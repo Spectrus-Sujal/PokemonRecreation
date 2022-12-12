@@ -8,15 +8,15 @@ public class MovesDatabase : MonoBehaviour
     {
         new Move(),
 
-        new Move("Pound", 5, Move.Attribute.Normal, 20, Move.attackType.Regular),
+        new Move("Razor Leaf", 5, AttributeDatabase.Attribute.Grass, 20, Move.attackType.Regular),
 
-        new Move("Ember", 10, Move.Attribute.Fire, 10, Move.attackType.Regular)
+        new Move("Ember", 10, AttributeDatabase.Attribute.Fire, 10, Move.attackType.Regular)
     };
 
     public enum Moves
     {
         Empty,
-        Pound,
+        RazorLeaf,
         Ember
     }
 }

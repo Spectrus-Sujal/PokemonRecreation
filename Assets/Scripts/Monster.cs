@@ -11,13 +11,11 @@ public class Monster
 {
     // Stats
     public string monsterName;
-    public Move.Attribute type;
-    public int maxHelath;
-    public int speed;
-    public int defense;
-    public int attack;
-
-    public bool isTurn = false;
+    private AttributeDatabase.Attribute type;
+    private int maxHelath;
+    private int speed;
+    private int defense;
+    private int attack;
 
     private int currentHelath;
 
@@ -36,7 +34,7 @@ public class Monster
     /// <param name="two"> Move 2</param>
     /// <param name="three"> Move 3</param>
     /// <param name="four"> MOve 4</param>
-    public Monster(string monsterName, Move.Attribute type, int maxHealth, int speed, int defense, int attack, Move one, Move two, Move three, Move four)
+    public Monster(string monsterName, AttributeDatabase.Attribute type, int maxHealth, int speed, int defense, int attack, Move one, Move two, Move three, Move four)
     {
         this.monsterName = monsterName;
         this.type = type;
@@ -53,45 +51,57 @@ public class Monster
         this.moves[3] = four;
     }
 
-    public bool takeDamage(Move move)
+    public bool takeDamage(Move move, AttributeDatabase AB)
     {
-        Debug.Log("Before damage: " + currentHelath);
-
-        Debug.Log("Damage: " + move.damage);
-
-        bool damageTaken = false;
-
-        if (move.damageType == type)
+        if (isWeakTo(AB, move.damageType))
         {
-            currentHelath -= move.damage;
-            damageTaken = true;
+            currentHelath -= move.damage + (move.damage / 2);
         }
-
-        if (!damageTaken && type - 1 < 0)
+        else if (isGoodAgainst(AB, move.damageType))
         {
-            if (move.damageType == type + 2)
-            {
-                currentHelath -= move.damage + move.damage / 2;
-                damageTaken = true;
-            }
+            currentHelath -= move.damage / 2;
         }
-        else if(!damageTaken && move.damageType == type - 1)
-        {
-            currentHelath -= move.damage + move.damage / 2;
-            damageTaken = true;
-        }
-
-        Debug.Log("Damage Type: " + move.damageType);
-        Debug.Log("Monster Type: " + type);
-
-        if (!damageTaken)
+        else
         {
             currentHelath -= move.damage;
         }
-
-        Debug.Log("After damage: " + currentHelath);
 
         return currentHelath <= 0;
+    }
 
+    public bool isWeakTo(AttributeDatabase attributes, AttributeDatabase.Attribute move)
+    {
+        return attributes.isWeakTo(type, move);
+    }
+
+    public bool isGoodAgainst(AttributeDatabase attributes, AttributeDatabase.Attribute move)
+    {
+        return attributes.isGoodAgainst(type, move);
+    }
+
+    public int getSpeed()
+    {
+        return speed;
+    }
+
+    public void debuff(Move move)
+    {
+        speed--;
+        defense--;
+        attack--;
+
+        if (speed < 1) speed = 1;
+
+        if (defense < 1) defense = 1;
+
+        if (attack < 1) attack = 1;
+
+    }
+
+    public void buff(Move move)
+    {
+        speed++;
+        defense++;
+        attack++;
     }
 }

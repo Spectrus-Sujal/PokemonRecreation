@@ -5,15 +5,15 @@ using UnityEngine;
 public class ThisMonster : MonoBehaviour
 {
     public MonsterDatabase.Monsters thisOne;
-    public Monster me;
+    public Monster monster;
     
-    public Transform CM;
+    public Transform CombatManager;
     
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(thisOne);
-        me = CM.GetComponent<MonsterDatabase>().MonstersList[(int)thisOne];
+        monster = CombatManager.GetComponent<MonsterDatabase>().MonstersList[(int)thisOne];
+        this.name = monster.monsterName;
     }
 
     // Update is called once per frame
