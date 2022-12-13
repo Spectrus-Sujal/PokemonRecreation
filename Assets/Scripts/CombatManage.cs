@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public class CombatManage : MonoBehaviour
@@ -16,6 +18,9 @@ public class CombatManage : MonoBehaviour
 
     public Transform PlayerObject;
     public Transform EnemyObject;
+
+    [SerializeField] private Slider playerHealth;
+    [SerializeField] private Slider enemyHealth;
 
    // private bool isPlayerFirst = false;
 
@@ -41,18 +46,30 @@ public class CombatManage : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            autoSelectMove(ref player, ref enemy);
-        }
+        
     }
 
-    void startRound(MovesDatabase.Moves playerMove)
+    public void startRound(Move playerMove)
     {
         if (enemy.getSpeed() < player.getSpeed())
         {
+            Debug.Log(enemy.monsterName + " Turn");
+            autoSelectMove(ref enemy, ref player);
+            Debug.Log(player.monsterName + " turn");
+            doMove(playerMove, ref player, ref enemy);
+        }
+        else
+        {
+            Debug.Log(player.monsterName + " Turn");
+            doMove(playerMove, ref player, ref enemy);
+            Debug.Log(enemy.monsterName + " turn");
             autoSelectMove(ref enemy, ref player);
         }
+
+        playerHealth.value = (float)player.getHealthPercent();
+        enemyHealth.value = (float)enemy.getHealthPercent();
+
+        Debug.Log("Next Turn");
     }
 
     void autoSelectMove(ref Monster attacker, ref Monster target)
@@ -97,24 +114,32 @@ public class CombatManage : MonoBehaviour
 
         Move moveChosen = attacker.moves[heaviest];
 
-        switch (moveChosen.effect)
-        {
-            case Move.attackType.Buff:
-                buff(ref attacker, moveChosen);
-                break;
-            case Move.attackType.Debuff:
-                debuff(ref target, moveChosen);
-                break;
-            default:
-                dealDamage(ref target, moveChosen);
-                break;
-        }
+        doMove(moveChosen, ref attacker, ref target);
 
     }
 
-    void dealDamage( ref Monster target, Move move)
+    void doMove(Move move, ref Monster attacker, ref Monster target)
     {
-        if (target.takeDamage(move, attributeData))
+        switch (move.effect)
+        {
+            case Move.attackType.Buff:
+                Debug.Log("Buffed " + attacker.monsterName);
+                buff(ref attacker, move);
+                break;
+            case Move.attackType.Debuff:
+                Debug.Log("DeBuffed " + target.monsterName);
+                debuff(ref target, move);
+                break;
+            default:
+                Debug.Log("Attacked " + target.monsterName);
+                dealDamage(attacker.getAttack(), ref target, move);
+                break;
+        }
+    }
+
+    void dealDamage(int attack, ref Monster target, Move move)
+    {
+        if (target.takeDamage(attack, move, attributeData))
         {
             if (target == player) loseGame();
             else winGame();

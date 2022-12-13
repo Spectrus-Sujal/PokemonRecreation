@@ -42,10 +42,19 @@ public class MonsterDatabase : MonoBehaviour
         MonstersList.Add(Torchic);
 
         Monster Mudkip = new Monster("Mudkip", AttributeDatabase.Attribute.Water,
-            18, 10, 8, 9,
-            MD.MovesList[(int)MovesDatabase.Moves.Ember],
+            24, 5, 14, 6,
+            MD.MovesList[(int)MovesDatabase.Moves.WaterGun],
+            MD.MovesList[(int)MovesDatabase.Moves.Growl],
             MD.MovesList[(int)MovesDatabase.Moves.Empty],
-            MD.MovesList[(int)MovesDatabase.Moves.Empty],
+            MD.MovesList[(int)MovesDatabase.Moves.Empty]);
+        
+        MonstersList.Add(Mudkip);
+
+        Monster Machop = new Monster("Machop", AttributeDatabase.Attribute.Fight,
+            14, 12, 4, 14,
+            MD.MovesList[(int)MovesDatabase.Moves.SeismicToss],
+            MD.MovesList[(int)MovesDatabase.Moves.Pound],
+            MD.MovesList[(int)MovesDatabase.Moves.Scratch],
             MD.MovesList[(int)MovesDatabase.Moves.Empty]);
         
         MonstersList.Add(Mudkip);

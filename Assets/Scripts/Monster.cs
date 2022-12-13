@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 /// <summary>
 /// The basis for all monsters, containing 
@@ -51,20 +52,25 @@ public class Monster
         this.moves[3] = four;
     }
 
-    public bool takeDamage(Move move, AttributeDatabase AB)
+    public bool takeDamage(int attack, Move move, AttributeDatabase AB)
     {
+        int damage = 0;
         if (isWeakTo(AB, move.damageType))
         {
-            currentHelath -= move.damage + (move.damage / 2);
+            damage = move.damage + (move.damage / 2);
         }
         else if (isGoodAgainst(AB, move.damageType))
         {
-            currentHelath -= move.damage / 2;
+            damage = move.damage / 2;
         }
         else
         {
-            currentHelath -= move.damage;
+            damage = move.damage;
         }
+
+        currentHelath -= attack + damage - defense;
+
+        Debug.Log(monsterName + " Current Health: " + currentHelath);
 
         return currentHelath <= 0;
     }
@@ -82,6 +88,16 @@ public class Monster
     public int getSpeed()
     {
         return speed;
+    }
+
+    public int getAttack()
+    {
+        return attack;
+    }
+
+    public double getHealthPercent()
+    {
+        return ((double)currentHelath / maxHelath) * 100;
     }
 
     public void debuff(Move move)
