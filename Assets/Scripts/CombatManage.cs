@@ -22,6 +22,8 @@ public class CombatManage : MonoBehaviour
     [SerializeField] private Slider playerHealth;
     [SerializeField] private Slider enemyHealth;
 
+    private bool gameOver = false;
+
    // private bool isPlayerFirst = false;
 
 
@@ -55,15 +57,23 @@ public class CombatManage : MonoBehaviour
         {
             Debug.Log(enemy.monsterName + " Turn");
             autoSelectMove(ref enemy, ref player);
-            Debug.Log(player.monsterName + " turn");
-            doMove(playerMove, ref player, ref enemy);
+
+            if (!gameOver)
+            {
+                Debug.Log(player.monsterName + " turn");
+                doMove(playerMove, ref player, ref enemy);
+            }
         }
         else
         {
             Debug.Log(player.monsterName + " Turn");
             doMove(playerMove, ref player, ref enemy);
-            Debug.Log(enemy.monsterName + " turn");
-            autoSelectMove(ref enemy, ref player);
+
+            if (!gameOver)
+            {
+                Debug.Log(enemy.monsterName + " turn");
+                autoSelectMove(ref enemy, ref player);
+            }
         }
 
         playerHealth.value = (float)player.getHealthPercent();
@@ -143,6 +153,7 @@ public class CombatManage : MonoBehaviour
         {
             if (target == player) loseGame();
             else winGame();
+            gameOver = true;
         }
     }
 

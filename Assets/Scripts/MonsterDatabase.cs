@@ -5,14 +5,14 @@ using UnityEngine;
 public class MonsterDatabase : MonoBehaviour
 {
     MovesDatabase MD;
-    private Move m;
 
     public List<Monster> MonstersList = new List<Monster>();
 
     public enum Monsters
     {
         Treeko,
-        Torchic
+        Torchic,
+        Mudkip
     }
 
     void Awake()

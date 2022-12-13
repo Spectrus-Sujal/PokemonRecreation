@@ -8,7 +8,7 @@ public class ThisMonster : MonoBehaviour
     public Monster monster;
     
     public Transform CombatManager;
-    
+
     // Start is called before the first frame update
     void Start()
     {
