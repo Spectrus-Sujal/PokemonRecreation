@@ -11,28 +11,26 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI move3;
     [SerializeField] TextMeshProUGUI move4;
 
-    private Monster player;
+    private CombatManage cm;
 
-    private ThisMonster th;
+    static Monster player;
 
     [SerializeField] Transform combatManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("initialize", 0.1f);
+        cm = combatManager.GetComponent<CombatManage>();
+        Invoke("initialize", 0.01f);
     }
 
     void initialize()
     {
-        th = GetComponent<ThisMonster>();
-        player = th.monster;
+        player = cm.getPlayer();
         move1.text = player.moves[0].moveName;
         move2.text = player.moves[1].moveName;
         move3.text = player.moves[2].moveName;
         move4.text = player.moves[3].moveName;
-
-        
     }
 
     // Update is called once per frame

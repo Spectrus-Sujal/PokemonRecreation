@@ -13,12 +13,12 @@ public class Monster
     // Stats
     public string monsterName;
     private AttributeDatabase.Attribute type;
-    private int maxHelath;
+    private int maxHealth;
     private int speed;
     private int defense;
     private int attack;
 
-    private int currentHelath;
+    private int currentHealth;
 
     public Move[] moves;
 
@@ -39,8 +39,8 @@ public class Monster
     {
         this.monsterName = monsterName;
         this.type = type;
-        this.maxHelath = maxHealth;
-        currentHelath = maxHealth;
+        this.maxHealth = maxHealth;
+        currentHealth = maxHealth;
         this.speed = speed;
         this.defense = defense;
         this.attack = attack;
@@ -50,6 +50,23 @@ public class Monster
         this.moves[1] = two;
         this.moves[2] = three;
         this.moves[3] = four;
+    }
+
+    public Monster(Monster mon)
+    {
+        this.monsterName = mon.monsterName;
+        this.type = mon.type;
+        this.maxHealth = mon.maxHealth;
+        currentHealth = mon.maxHealth;
+        this.speed = mon.speed;
+        this.defense = mon.defense;
+        this.attack = mon.attack;
+
+        this.moves = new Move[4];
+        this.moves[0] = mon.moves[0];
+        this.moves[1] = mon.moves[1];
+        this.moves[2] = mon.moves[2];
+        this.moves[3] = mon.moves[3];
     }
 
     public bool takeDamage(int attack, Move move, AttributeDatabase AB)
@@ -68,11 +85,11 @@ public class Monster
             damage = move.damage;
         }
 
-        currentHelath -= attack + damage - defense;
+        currentHealth -= attack + damage - defense;
 
-        Debug.Log(monsterName + " Current Health: " + currentHelath);
+        Debug.Log(monsterName + " Current Health: " + currentHealth);
 
-        return currentHelath <= 0;
+        return currentHealth <= 0;
     }
 
     public bool isWeakTo(AttributeDatabase attributes, AttributeDatabase.Attribute move)
@@ -97,7 +114,7 @@ public class Monster
 
     public double getHealthPercent()
     {
-        return ((double)currentHelath / maxHelath) * 100;
+        return ((double)currentHealth / maxHealth) * 100;
     }
 
     public void debuff(Move move)

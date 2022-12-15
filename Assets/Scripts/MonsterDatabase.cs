@@ -12,7 +12,9 @@ public class MonsterDatabase : MonoBehaviour
     {
         Treeko,
         Torchic,
-        Mudkip
+        Mudkip,
+        Machop,
+        Infernape
     }
 
     void Awake()
@@ -21,7 +23,7 @@ public class MonsterDatabase : MonoBehaviour
         addMonsters();
     }
 
-    void addMonsters()
+    public void addMonsters()
     {
         Monster Treeko = new Monster("Treeko", AttributeDatabase.Attribute.Grass,
             20, 8, 10, 7,
@@ -57,6 +59,15 @@ public class MonsterDatabase : MonoBehaviour
             MD.MovesList[(int)MovesDatabase.Moves.Scratch],
             MD.MovesList[(int)MovesDatabase.Moves.Empty]);
         
-        MonstersList.Add(Mudkip);
+        MonstersList.Add(Machop);
+
+        Monster Infernape = new Monster("Infernape", AttributeDatabase.Attribute.Fire,
+            30, 15, 10, 20,
+            MD.MovesList[(int)MovesDatabase.Moves.Ember],
+            MD.MovesList[(int)MovesDatabase.Moves.SeismicToss],
+            MD.MovesList[(int)MovesDatabase.Moves.Pound],
+            MD.MovesList[(int)MovesDatabase.Moves.DragonDance]);
+        
+        MonstersList.Add(Infernape);
     }
 }

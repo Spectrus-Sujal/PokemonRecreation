@@ -2,26 +2,27 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
+using Random = System.Random;
 
 public class CombatManage : MonoBehaviour
 {
-    MovesDatabase moveData;
     MonsterDatabase monsterData;
     AttributeDatabase attributeData;
 
-    private Monster player;
-    private Monster enemy;
-
-    public Transform PlayerObject;
-    public Transform EnemyObject;
-
+    static Monster player;
+    static Monster enemy;
+    
+    [SerializeField] private TextMeshProUGUI playerName;
     [SerializeField] private Slider playerHealth;
+    [SerializeField] private TextMeshProUGUI enemyName;
     [SerializeField] private Slider enemyHealth;
-
+    
     private bool gameOver = false;
 
    // private bool isPlayerFirst = false;
@@ -31,24 +32,29 @@ public class CombatManage : MonoBehaviour
     void Awake()
     {
         attributeData = GetComponent<AttributeDatabase>();
-        moveData = GetComponent<MovesDatabase>();
         monsterData = GetComponent<MonsterDatabase>();
     }
 
     void Start()
     {
-        Invoke("assignMonsters", 0.1f);
+        Random rand = new Random();
+
+        int num = rand.Next(monsterData.MonstersList.Count);
+
+        enemy = new Monster(monsterData.MonstersList[0]);
+
+        player = new Monster(monsterData.MonstersList[0]);
     }
 
-    void assignMonsters()
+    public Monster getPlayer()
     {
-        player = PlayerObject.GetComponent<ThisMonster>().monster;
-        enemy = EnemyObject.GetComponent<ThisMonster>().monster;
+        return player;
     }
 
-    void Update()
+    public void assignPlayer(Monster p)
     {
         
+        player = new Monster(p);
     }
 
     public void startRound(Move playerMove)
@@ -61,13 +67,13 @@ public class CombatManage : MonoBehaviour
             if (!gameOver)
             {
                 Debug.Log(player.monsterName + " turn");
-                doMove(playerMove, ref player, ref enemy);
+                doMove(playerMove, player, enemy);
             }
         }
         else
         {
             Debug.Log(player.monsterName + " Turn");
-            doMove(playerMove, ref player, ref enemy);
+            doMove(playerMove,  player,  enemy);
 
             if (!gameOver)
             {
@@ -79,7 +85,7 @@ public class CombatManage : MonoBehaviour
         playerHealth.value = (float)player.getHealthPercent();
         enemyHealth.value = (float)enemy.getHealthPercent();
 
-        Debug.Log("Next Turn");
+        Debug.Log("Round Over");
     }
 
     void autoSelectMove(ref Monster attacker, ref Monster target)
@@ -124,11 +130,11 @@ public class CombatManage : MonoBehaviour
 
         Move moveChosen = attacker.moves[heaviest];
 
-        doMove(moveChosen, ref attacker, ref target);
+        doMove(moveChosen, attacker, target);
 
     }
 
-    void doMove(Move move, ref Monster attacker, ref Monster target)
+    void doMove(Move move, Monster attacker, Monster target)
     {
         switch (move.effect)
         {
@@ -142,12 +148,12 @@ public class CombatManage : MonoBehaviour
                 break;
             default:
                 Debug.Log("Attacked " + target.monsterName);
-                dealDamage(attacker.getAttack(), ref target, move);
+                dealDamage(attacker.getAttack(), target, move);
                 break;
         }
     }
 
-    void dealDamage(int attack, ref Monster target, Move move)
+    void dealDamage(int attack, Monster target, Move move)
     {
         if (target.takeDamage(attack, move, attributeData))
         {
