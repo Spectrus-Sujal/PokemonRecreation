@@ -1,13 +1,8 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
 using Random = System.Random;
 
 public class CombatManage : MonoBehaviour
@@ -16,13 +11,10 @@ public class CombatManage : MonoBehaviour
     AttributeDatabase attributeData;
 
     static Monster player;
+    private static int playerIndex = 0;
     static Monster enemy;
-    
-    [SerializeField] private TextMeshProUGUI playerName;
-    [SerializeField] private Slider playerHealth;
-    [SerializeField] private TextMeshProUGUI enemyName;
-    [SerializeField] private Slider enemyHealth;
-    
+    private static int enemyIndex = 0;
+
     private bool gameOver = false;
 
    // private bool isPlayerFirst = false;
@@ -39,11 +31,11 @@ public class CombatManage : MonoBehaviour
     {
         Random rand = new Random();
 
-        int num = rand.Next(monsterData.MonstersList.Count);
+        enemyIndex = rand.Next(monsterData.MonstersList.Count);
 
-        enemy = new Monster(monsterData.MonstersList[0]);
+        enemy = new Monster(monsterData.MonstersList[enemyIndex]);
 
-        player = new Monster(monsterData.MonstersList[0]);
+        player = new Monster(monsterData.MonstersList[playerIndex]);
     }
 
     public Monster getPlayer()
@@ -51,9 +43,23 @@ public class CombatManage : MonoBehaviour
         return player;
     }
 
+    public Monster getEnemy()
+    {
+        return enemy;
+    }
+
+    public int getPlayerIndex()
+    {
+        return playerIndex;
+    }
+
+    public int getEnemyIndex()
+    {
+        return enemyIndex;
+    }
+
     public void assignPlayer(Monster p)
     {
-        
         player = new Monster(p);
     }
 
@@ -81,9 +87,6 @@ public class CombatManage : MonoBehaviour
                 autoSelectMove(ref enemy, ref player);
             }
         }
-
-        playerHealth.value = (float)player.getHealthPercent();
-        enemyHealth.value = (float)enemy.getHealthPercent();
 
         Debug.Log("Round Over");
     }
