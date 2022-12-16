@@ -61,21 +61,25 @@ public class HUDManager : MonoBehaviour
 
     public void doMove1()
     {
-        cm.startRound(player.moves[0]);
+        if (cm.gamePaused) return;
+        cm.StartCoroutine(cm.startRound(player.moves[0]));
     }
 
     public void doMove2()
     {
-        cm.startRound(player.moves[1]);
+        if (cm.gamePaused) return;
+        cm.StartCoroutine(cm.startRound(player.moves[1]));
     }
 
     public void doMove3()
     {
-        cm.startRound(player.moves[2]);
+        if (cm.gamePaused) return;
+        cm.StartCoroutine(cm.startRound(player.moves[2]));
     }
 
     public void doMove4()
     {
-        cm.startRound(player.moves[3]);
+        if (cm.gamePaused) return;
+        cm.StartCoroutine(cm.startRound(player.moves[3]));
     }
 }

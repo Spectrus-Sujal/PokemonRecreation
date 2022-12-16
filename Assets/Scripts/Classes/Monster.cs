@@ -87,8 +87,6 @@ public class Monster
 
         currentHealth -= attack + damage - defense;
 
-        Debug.Log(monsterName + " Current Health: " + currentHealth);
-
         return currentHealth <= 0;
     }
 

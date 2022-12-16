@@ -10,12 +10,17 @@ public class CombatManage : MonoBehaviour
     MonsterDatabase monsterData;
     AttributeDatabase attributeData;
 
+    [SerializeField] private TextMeshProUGUI dialogue;
+    [SerializeField] private GameObject playerGO;
+    [SerializeField] private GameObject enemyGO;
+
     static Monster player;
     private static int playerIndex = 0;
     static Monster enemy;
     private static int enemyIndex = 0;
 
     private bool gameOver = false;
+    public bool gamePaused = false;
 
    // private bool isPlayerFirst = false;
 
@@ -38,57 +43,68 @@ public class CombatManage : MonoBehaviour
         player = new Monster(monsterData.MonstersList[playerIndex]);
     }
 
-    public Monster getPlayer()
-    {
-        return player;
-    }
+    public Monster getPlayer() { return player; }
 
-    public Monster getEnemy()
-    {
-        return enemy;
-    }
+    public Monster getEnemy() { return enemy; }
 
-    public int getPlayerIndex()
-    {
-        return playerIndex;
-    }
+    public int getPlayerIndex() { return playerIndex; }
 
-    public int getEnemyIndex()
-    {
-        return enemyIndex;
-    }
+    public int getEnemyIndex() { return enemyIndex; }
 
-    public void assignPlayer(Monster p)
+    public void assignPlayer(Monster p, int index)
     {
         player = new Monster(p);
+        playerIndex = index;
     }
 
-    public void startRound(Move playerMove)
+    public IEnumerator startRound(Move playerMove)
     {
-        if (enemy.getSpeed() < player.getSpeed())
+        gamePaused = true;
+
+        if (enemy.getSpeed() > player.getSpeed())
         {
-            Debug.Log(enemy.monsterName + " Turn");
             autoSelectMove(ref enemy, ref player);
+
+            yield return new WaitForSeconds(2f);
 
             if (!gameOver)
             {
-                Debug.Log(player.monsterName + " turn");
                 doMove(playerMove, player, enemy);
+
+                yield return new WaitForSeconds(2f);
+            }
+            else
+            {
+                dialogue.text = player.monsterName + " has fainted";
+                playerGO.SetActive(false);
+                yield return new WaitForSeconds(2f);
+                
             }
         }
         else
         {
-            Debug.Log(player.monsterName + " Turn");
             doMove(playerMove,  player,  enemy);
+
+            yield return new WaitForSeconds(2f);
 
             if (!gameOver)
             {
-                Debug.Log(enemy.monsterName + " turn");
                 autoSelectMove(ref enemy, ref player);
+                yield return new WaitForSeconds(2f);
+            }
+            else
+            {
+                dialogue.text = enemy.monsterName + " has fainted";
+                enemyGO.SetActive(false);
+                yield return new WaitForSeconds(2f);
             }
         }
 
-        Debug.Log("Round Over");
+        if (!gameOver)
+        {
+            dialogue.text = "Choose your next Move";
+            gamePaused = false;
+        }
     }
 
     void autoSelectMove(ref Monster attacker, ref Monster target)
@@ -139,18 +155,19 @@ public class CombatManage : MonoBehaviour
 
     void doMove(Move move, Monster attacker, Monster target)
     {
+        dialogue.text = attacker.monsterName + " used " + move.moveName;
         switch (move.effect)
         {
             case Move.attackType.Buff:
-                Debug.Log("Buffed " + attacker.monsterName);
+                dialogue.text += " and buffed itself";
                 buff(ref attacker, move);
                 break;
             case Move.attackType.Debuff:
-                Debug.Log("DeBuffed " + target.monsterName);
+                dialogue.text += " and put a debuff on  " + target.monsterName;
                 debuff(ref target, move);
                 break;
             default:
-                Debug.Log("Attacked " + target.monsterName);
+                dialogue.text += " to attack " + target.monsterName;
                 dealDamage(attacker.getAttack(), target, move);
                 break;
         }
@@ -166,15 +183,9 @@ public class CombatManage : MonoBehaviour
         }
     }
 
-    void debuff(ref Monster target, Move move)
-    {
-        target.debuff(move);
-    }
+    void debuff(ref Monster target, Move move) { target.debuff(move); }
 
-    void buff(ref Monster target, Move move)
-    {
-        target.buff(move);
-    }
+    void buff(ref Monster target, Move move) { target.buff(move); }
 
     void winGame()
     {
@@ -184,11 +195,6 @@ public class CombatManage : MonoBehaviour
     void loseGame()
     {
         Debug.Log("Game Lost");
-    }
-
-    void showGame()
-    {
-
     }
 
 }
