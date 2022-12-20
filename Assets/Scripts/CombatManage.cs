@@ -49,10 +49,6 @@ public class CombatManage : MonoBehaviour
 
     public Monster getEnemy() { return enemy; }
 
-    public int getPlayerIndex() { return playerIndex; }
-
-    public int getEnemyIndex() { return enemyIndex; }
-
     public void assignPlayer(Monster p, int index)
     {
         player = new Monster(p);

@@ -41,8 +41,8 @@ public class HUDManager : MonoBehaviour
         playerName.text = player.monsterName;
         enemyName.text = enemy.monsterName;
 
-        playerTransform.GetComponent<SpriteRenderer>().sprite = cm.getPlayer().backPose;
-        enemyTransform.GetComponent<SpriteRenderer>().sprite = cm.getEnemy().frontPose;
+        playerTransform.GetComponent<SpriteRenderer>().sprite = player.backPose;
+        enemyTransform.GetComponent<SpriteRenderer>().sprite = enemy.frontPose;
     }
 
     void Update()

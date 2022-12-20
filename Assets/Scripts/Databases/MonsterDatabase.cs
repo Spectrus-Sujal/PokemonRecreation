@@ -10,8 +10,6 @@ public class MonsterDatabase : MonoBehaviour
 {
     MovesDatabase MD;
 
-    [Header("Number of Monsters: 5")]
-
     public List<Monster> MonstersList = new List<Monster>();
 
     public enum Monsters
@@ -23,9 +21,11 @@ public class MonsterDatabase : MonoBehaviour
         Infernape
     }
 
+    [Header("Number of Monsters: 5")]
+
     [Header("Monster Sprites")]
-    public List<Sprite> MonsterSpritesBack = new List<Sprite>();
-    public List<Sprite> MonsterSpritesFront = new List<Sprite>();
+    public List<Sprite> MonsterSpritesBack;
+    public List<Sprite> MonsterSpritesFront;
 
     void Awake()
     {

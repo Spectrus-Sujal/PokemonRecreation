@@ -43,6 +43,9 @@ public class Monster
         this.moves[1] = mon.moves[1];
         this.moves[2] = mon.moves[2];
         this.moves[3] = mon.moves[3];
+
+        this.backPose = mon.backPose;
+        this.frontPose = mon.frontPose;
     }
 
     // New monster with all stats
