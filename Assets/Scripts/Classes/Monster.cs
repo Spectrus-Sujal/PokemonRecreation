@@ -22,7 +22,10 @@ public class Monster
 
     public MovesDatabase.Moves[] moves;
     //////////      //////////
-    
+
+    public Sprite backPose;
+    public Sprite frontPose;
+
     //Constructors 
     // Make a new monster based on an existing one
     public Monster(Monster mon)
@@ -46,7 +49,8 @@ public class Monster
     public Monster(string monsterName, AttributeDatabase.Attribute type, 
         int maxHealth, int speed, int defense, int attack, 
         MovesDatabase.Moves one, MovesDatabase.Moves two, 
-        MovesDatabase.Moves three, MovesDatabase.Moves four)
+        MovesDatabase.Moves three, MovesDatabase.Moves four,
+        Sprite back, Sprite front)
     {
         this.monsterName = monsterName;
         this.type = type;
@@ -61,6 +65,9 @@ public class Monster
         this.moves[1] = two;
         this.moves[2] = three;
         this.moves[3] = four;
+
+        this.backPose = back;
+        this.frontPose = front;
     }
 
     // Compare move attribute to Pokemon attribute

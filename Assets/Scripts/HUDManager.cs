@@ -26,9 +26,6 @@ public class HUDManager : MonoBehaviour
     [SerializeField] private Transform CombatManager;
     private CombatManage cm;
 
-    [SerializeField] private Sprite[] backs;
-    [SerializeField] private Sprite[] fronts;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -44,8 +41,8 @@ public class HUDManager : MonoBehaviour
         playerName.text = player.monsterName;
         enemyName.text = enemy.monsterName;
 
-        playerTransform.GetComponent<SpriteRenderer>().sprite = backs[cm.getPlayerIndex()];
-        enemyTransform.GetComponent<SpriteRenderer>().sprite = fronts[cm.getEnemyIndex()];
+        playerTransform.GetComponent<SpriteRenderer>().sprite = cm.getPlayer().backPose;
+        enemyTransform.GetComponent<SpriteRenderer>().sprite = cm.getEnemy().frontPose;
     }
 
     void Update()

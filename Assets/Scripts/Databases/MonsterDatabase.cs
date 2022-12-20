@@ -2,9 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// A script containing all monsters and their information
+/// as well as where new monsters are added
+/// </summary>
 public class MonsterDatabase : MonoBehaviour
 {
     MovesDatabase MD;
+
+    [Header("Number of Monsters: 5")]
 
     public List<Monster> MonstersList = new List<Monster>();
 
@@ -16,6 +22,10 @@ public class MonsterDatabase : MonoBehaviour
         Machop,
         Infernape
     }
+
+    [Header("Monster Sprites")]
+    public List<Sprite> MonsterSpritesBack = new List<Sprite>();
+    public List<Sprite> MonsterSpritesFront = new List<Sprite>();
 
     void Awake()
     {
@@ -30,7 +40,8 @@ public class MonsterDatabase : MonoBehaviour
             MovesDatabase.Moves.RazorLeaf,
             MovesDatabase.Moves.Empty,
             MovesDatabase.Moves.Empty,
-            MovesDatabase.Moves.Empty);
+            MovesDatabase.Moves.Empty,
+            MonsterSpritesBack[0], MonsterSpritesFront[0]);
 
         MonstersList.Add(Treeko);
 
@@ -39,7 +50,8 @@ public class MonsterDatabase : MonoBehaviour
             MovesDatabase.Moves.Ember,
             MovesDatabase.Moves.Empty,
             MovesDatabase.Moves.Empty,
-            MovesDatabase.Moves.Empty);
+            MovesDatabase.Moves.Empty,
+            MonsterSpritesBack[1], MonsterSpritesFront[1]);
         
         MonstersList.Add(Torchic);
 
@@ -48,7 +60,8 @@ public class MonsterDatabase : MonoBehaviour
             MovesDatabase.Moves.WaterGun,
             MovesDatabase.Moves.Growl,
             MovesDatabase.Moves.Empty,
-            MovesDatabase.Moves.Empty);
+            MovesDatabase.Moves.Empty,
+            MonsterSpritesBack[2], MonsterSpritesFront[2]);
         
         MonstersList.Add(Mudkip);
 
@@ -57,7 +70,8 @@ public class MonsterDatabase : MonoBehaviour
             MovesDatabase.Moves.SeismicToss,
             MovesDatabase.Moves.Pound,
             MovesDatabase.Moves.Scratch,
-            MovesDatabase.Moves.Empty);
+            MovesDatabase.Moves.Empty,
+            MonsterSpritesBack[3], MonsterSpritesFront[3]);
         
         MonstersList.Add(Machop);
 
@@ -65,8 +79,9 @@ public class MonsterDatabase : MonoBehaviour
             30, 15, 10, 20,
             MovesDatabase.Moves.Ember,
             MovesDatabase.Moves.SeismicToss,
-            MovesDatabase.Moves.Pound,
-            MovesDatabase.Moves.DragonDance);
+            MovesDatabase.Moves.Howl,
+            MovesDatabase.Moves.DragonDance,
+            MonsterSpritesBack[4], MonsterSpritesFront[4]);
         
         MonstersList.Add(Infernape);
     }

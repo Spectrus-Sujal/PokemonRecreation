@@ -4,6 +4,22 @@ using UnityEngine;
 
 public class MovesDatabase : MonoBehaviour
 {
+    public enum Moves
+    {
+        Empty,
+        RazorLeaf,
+        Ember,
+        WaterGun,
+        Growl,
+        DragonDance,
+        Scratch,
+        Pound,
+        Howl,
+        SeismicToss,
+        Potion,
+        Run
+    }
+
     public List<Move> MovesList = new List<Move>()
     {
         new Move(),
@@ -31,19 +47,4 @@ public class MovesDatabase : MonoBehaviour
         new Move("Run", 0, AttributeDatabase.Attribute.Normal, Move.attackType.Run)
     };
 
-    public enum Moves
-    {
-        Empty,
-        RazorLeaf,
-        Ember,
-        WaterGun,
-        Growl,
-        DragonDance,
-        Scratch,
-        Pound,
-        Howl,
-        SeismicToss,
-        Potion,
-        Run
-    }
 }
