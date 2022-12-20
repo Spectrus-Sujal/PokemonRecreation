@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using Random = System.Random;
 
 public class CombatManage : MonoBehaviour
 {
+    MovesDatabase moveData;
     MonsterDatabase monsterData;
     AttributeDatabase attributeData;
 
@@ -30,6 +31,7 @@ public class CombatManage : MonoBehaviour
     {
         attributeData = GetComponent<AttributeDatabase>();
         monsterData = GetComponent<MonsterDatabase>();
+        moveData = GetComponent<MovesDatabase>();
     }
 
     void Start()
@@ -57,7 +59,7 @@ public class CombatManage : MonoBehaviour
         playerIndex = index;
     }
 
-    public IEnumerator startRound(Move playerMove)
+    public IEnumerator startRound(MovesDatabase.Moves playerMove)
     {
         gamePaused = true;
 
@@ -79,6 +81,7 @@ public class CombatManage : MonoBehaviour
                 playerGO.SetActive(false);
                 yield return new WaitForSeconds(2f);
                 
+                SceneManager.LoadScene("");
             }
         }
         else
@@ -97,43 +100,43 @@ public class CombatManage : MonoBehaviour
                 dialogue.text = enemy.monsterName + " has fainted";
                 enemyGO.SetActive(false);
                 yield return new WaitForSeconds(2f);
+
+                SceneManager.LoadScene("");
             }
         }
 
-        if (!gameOver)
-        {
-            dialogue.text = "Choose your next Move";
-            gamePaused = false;
-        }
+        dialogue.text = "Choose your next Move";
+        gamePaused = false;
+
+        
     }
 
     void autoSelectMove(ref Monster attacker, ref Monster target)
     {
         int[] weight = {1, 1, 1, 1};
 
+        Random rand = new Random();
+        if (attacker.getHealthPercent() < 30 && rand.Next(100) < 70)
+        {
+            doMove(MovesDatabase.Moves.Potion, attacker, target);
+            return;
+        }
 
         for (int i = 0; i < 4; i++)
         {
-            if (target.isWeakTo(attributeData, attacker.moves[i].damageType))
+            Move currentMove = moveData.MovesList[(int)attacker.moves[i]];
+            if (target.isWeakTo(attributeData, currentMove.damageType))
             {
                 weight[i]--;
             }
-            else if (attacker.isGoodAgainst(attributeData, target.moves[i].damageType))
+            else if (attacker.isGoodAgainst(attributeData, currentMove.damageType))
             {
                 weight[i]++;
             }
 
-            if (attacker.moves[i].effect == Move.attackType.Regular)
+            if (currentMove.effect == Move.attackType.Regular)
             {
                 weight[i]++;
-            }
-
-            for (int j = 0; j < 4; j++)
-            {
-                if (attacker.moves[i].uses > attacker.moves[j].uses)
-                {
-                    weight[i]++;
-                }
             }
         }
 
@@ -147,54 +150,53 @@ public class CombatManage : MonoBehaviour
             }
         }
 
-        Move moveChosen = attacker.moves[heaviest];
+        MovesDatabase.Moves moveChosen = attacker.moves[heaviest];
 
-        doMove(moveChosen, attacker, target);
+        doMove(moveChosen, attacker, target);  
 
     }
 
-    void doMove(Move move, Monster attacker, Monster target)
+    void doMove(MovesDatabase.Moves moveName, Monster attacker, Monster target)
     {
+        Move move = moveData.MovesList[(int)moveName];
         dialogue.text = attacker.monsterName + " used " + move.moveName;
         switch (move.effect)
         {
             case Move.attackType.Buff:
                 dialogue.text += " and buffed itself";
-                buff(ref attacker, move);
+                target.buff(move);
                 break;
+
             case Move.attackType.Debuff:
                 dialogue.text += " and put a debuff on  " + target.monsterName;
-                debuff(ref target, move);
+                target.debuff(move);
                 break;
+
+            case Move.attackType.Heal:
+                dialogue.text = attacker.monsterName + " used a potion";
+                attacker.usePotion(move);
+                break;
+
+            case Move.attackType.Run:
+                Random rand = new Random();
+                if (rand.Next(10) < 5)
+                {
+                    dialogue.text = attacker.monsterName + " ran away successfully";
+                }
+                else
+                {
+                    dialogue.text = attacker.monsterName + " could not run away";
+                }
+                break;
+
             default:
                 dialogue.text += " to attack " + target.monsterName;
-                dealDamage(attacker.getAttack(), target, move);
+                if (target.takeDamage(move.damage, move, attributeData))
+                {
+                    gameOver = true;
+                }
                 break;
         }
-    }
-
-    void dealDamage(int attack, Monster target, Move move)
-    {
-        if (target.takeDamage(attack, move, attributeData))
-        {
-            if (target == player) loseGame();
-            else winGame();
-            gameOver = true;
-        }
-    }
-
-    void debuff(ref Monster target, Move move) { target.debuff(move); }
-
-    void buff(ref Monster target, Move move) { target.buff(move); }
-
-    void winGame()
-    {
-        Debug.Log("Game Won");
-    }
-
-    void loseGame()
-    {
-        Debug.Log("Game Lost");
     }
 
 }

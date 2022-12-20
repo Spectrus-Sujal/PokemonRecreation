@@ -20,7 +20,7 @@ public class Monster
 
     private int currentHealth;
 
-    public Move[] moves;
+    public MovesDatabase.Moves[] moves;
 
     /// <summary>
     ///  A monster
@@ -35,7 +35,10 @@ public class Monster
     /// <param name="two"> Move 2</param>
     /// <param name="three"> Move 3</param>
     /// <param name="four"> MOve 4</param>
-    public Monster(string monsterName, AttributeDatabase.Attribute type, int maxHealth, int speed, int defense, int attack, Move one, Move two, Move three, Move four)
+    public Monster(string monsterName, AttributeDatabase.Attribute type, 
+        int maxHealth, int speed, int defense, int attack, 
+        MovesDatabase.Moves one, MovesDatabase.Moves two, 
+        MovesDatabase.Moves three, MovesDatabase.Moves four)
     {
         this.monsterName = monsterName;
         this.type = type;
@@ -45,7 +48,7 @@ public class Monster
         this.defense = defense;
         this.attack = attack;
 
-        this.moves = new Move[4];
+        this.moves = new MovesDatabase.Moves[4];
         this.moves[0] = one;
         this.moves[1] = two;
         this.moves[2] = three;
@@ -62,7 +65,7 @@ public class Monster
         this.defense = mon.defense;
         this.attack = mon.attack;
 
-        this.moves = new Move[4];
+        this.moves = new MovesDatabase.Moves[4];
         this.moves[0] = mon.moves[0];
         this.moves[1] = mon.moves[1];
         this.moves[2] = mon.moves[2];
@@ -88,6 +91,14 @@ public class Monster
         currentHealth -= attack + damage - defense;
 
         return currentHealth <= 0;
+    }
+
+    public void usePotion(Move move)
+    {
+        // The healing does negative damage
+        currentHealth -= move.damage;
+
+        if (currentHealth > maxHealth) currentHealth = maxHealth;
     }
 
     public bool isWeakTo(AttributeDatabase attributes, AttributeDatabase.Attribute move)

@@ -8,23 +8,27 @@ public class MovesDatabase : MonoBehaviour
     {
         new Move(),
 
-        new Move("Razor Leaf", 15, AttributeDatabase.Attribute.Grass, 10, Move.attackType.Regular),
+        new Move("Razor Leaf", 15, AttributeDatabase.Attribute.Grass, Move.attackType.Regular),
 
-        new Move("Ember", 15, AttributeDatabase.Attribute.Fire, 10, Move.attackType.Regular),
+        new Move("Ember", 15, AttributeDatabase.Attribute.Fire, Move.attackType.Regular),
 
-        new Move("Water Gun", 15, AttributeDatabase.Attribute.Water, 10, Move.attackType.Regular),
+        new Move("Water Gun", 15, AttributeDatabase.Attribute.Water, Move.attackType.Regular),
 
-        new Move("Growl", 0, AttributeDatabase.Attribute.Normal, 15, Move.attackType.Debuff),
+        new Move("Growl", 0, AttributeDatabase.Attribute.Normal, Move.attackType.Debuff),
 
-        new Move("Dragon Dance", 0, AttributeDatabase.Attribute.Normal, 10, Move.attackType.Buff),
+        new Move("Dragon Dance", 0, AttributeDatabase.Attribute.Normal, Move.attackType.Buff),
 
-        new Move("Scratch", 6, AttributeDatabase.Attribute.Normal, 20, Move.attackType.Regular),
+        new Move("Scratch", 6, AttributeDatabase.Attribute.Normal, Move.attackType.Regular),
 
-        new Move("Pound", 5, AttributeDatabase.Attribute.Normal, 20, Move.attackType.Regular),
+        new Move("Pound", 5, AttributeDatabase.Attribute.Normal, Move.attackType.Regular),
 
-        new Move("Howl", 0, AttributeDatabase.Attribute.Normal, 10, Move.attackType.Debuff),
+        new Move("Howl", 0, AttributeDatabase.Attribute.Normal, Move.attackType.Debuff),
 
-        new Move("Seismic Toss", 20, AttributeDatabase.Attribute.Fight, 12, Move.attackType.Regular)
+        new Move("Seismic Toss", 20, AttributeDatabase.Attribute.Fight, Move.attackType.Regular),
+
+        new Move("Potion", -20, AttributeDatabase.Attribute.Normal, Move.attackType.Heal),
+
+        new Move("Run", 0, AttributeDatabase.Attribute.Normal, Move.attackType.Run)
     };
 
     public enum Moves
@@ -38,7 +42,8 @@ public class MovesDatabase : MonoBehaviour
         Scratch,
         Pound,
         Howl,
-        SeismicToss
-
+        SeismicToss,
+        Potion,
+        Run
     }
 }

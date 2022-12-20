@@ -36,10 +36,10 @@ public class HUDManager : MonoBehaviour
         player = cm.getPlayer();
         enemy = cm.getEnemy();
 
-        move1.text = player.moves[0].moveName;
-        move2.text = player.moves[1].moveName;
-        move3.text = player.moves[2].moveName;
-        move4.text = player.moves[3].moveName;
+        move1.text = player.moves[0].ToString();
+        move2.text = player.moves[1].ToString();
+        move3.text = player.moves[2].ToString();
+        move4.text = player.moves[3].ToString();
 
         playerName.text = player.monsterName;
         enemyName.text = enemy.monsterName;
@@ -81,5 +81,17 @@ public class HUDManager : MonoBehaviour
     {
         if (cm.gamePaused) return;
         cm.StartCoroutine(cm.startRound(player.moves[3]));
+    }
+
+    public void usePotion()
+    {
+        if (cm.gamePaused) return;
+        cm.StartCoroutine(cm.startRound(MovesDatabase.Moves.Potion));
+    }
+
+    public void runAway()
+    {
+        if (cm.gamePaused) return;
+        cm.StartCoroutine(cm.startRound(MovesDatabase.Moves.Run));
     }
 }

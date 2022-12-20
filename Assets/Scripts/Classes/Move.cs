@@ -13,13 +13,12 @@ public class Move
     /// </summary>
     public enum attackType
     {
-        Regular, Buff, Debuff
+        Regular, Buff, Debuff, Heal, Run
     }
 
     public string moveName;
     public int damage;
     public AttributeDatabase.Attribute damageType;
-    public int uses;
     public attackType effect;
 
     public Move()
@@ -27,16 +26,14 @@ public class Move
         this.moveName = "-";
         this.damage = 0;
         this.damageType = AttributeDatabase.Attribute.Normal;
-        this.uses = 0;
         this.effect = attackType.Regular;
     }
 
-    public Move(string moveName, int damage, AttributeDatabase.Attribute damageType, int uses, attackType effect)
+    public Move(string moveName, int damage, AttributeDatabase.Attribute damageType, attackType effect)
     {
         this.moveName = moveName;
         this.damage = damage;
         this.damageType = damageType;
-        this.uses = uses;
         this.effect = effect;
     }
 }
