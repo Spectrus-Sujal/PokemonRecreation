@@ -5,36 +5,44 @@ using UnityEngine;
 using Random = System.Random;
 
 /// <summary>
-/// The basis for all monsters, containing 
-/// all components a monster needs
+/// The basis for all Pokemon, containing 
+/// all components a Pokemon needs
 /// </summary>
 public class Monster
 {
-    // Stats
+    ////////// Stats //////////
     public string monsterName;
     private AttributeDatabase.Attribute type;
     private int maxHealth;
     private int speed;
-    private int defense;
     private int attack;
+    private int defense;
 
     private int currentHealth;
 
     public MovesDatabase.Moves[] moves;
+    //////////      //////////
+    
+    //Constructors 
+    // Make a new monster based on an existing one
+    public Monster(Monster mon)
+    {
+        this.monsterName = mon.monsterName;
+        this.type = mon.type;
+        this.maxHealth = mon.maxHealth;
+        currentHealth = mon.maxHealth;
+        this.speed = mon.speed;
+        this.attack = mon.attack;
+        this.defense = mon.defense;
 
-    /// <summary>
-    ///  A monster
-    /// </summary>
-    /// <param name="monsterName"> Name</param>
-    /// <param name="type"> Monster Type</param>
-    /// <param name="maxHealth"> Max Health</param>
-    /// <param name="speed"> Speed</param>
-    /// <param name="defense"> Defense</param>
-    /// <param name="attack"> Attack</param>
-    /// <param name="one"> Move 1</param>
-    /// <param name="two"> Move 2</param>
-    /// <param name="three"> Move 3</param>
-    /// <param name="four"> MOve 4</param>
+        this.moves = new MovesDatabase.Moves[4];
+        this.moves[0] = mon.moves[0];
+        this.moves[1] = mon.moves[1];
+        this.moves[2] = mon.moves[2];
+        this.moves[3] = mon.moves[3];
+    }
+
+    // New monster with all stats
     public Monster(string monsterName, AttributeDatabase.Attribute type, 
         int maxHealth, int speed, int defense, int attack, 
         MovesDatabase.Moves one, MovesDatabase.Moves two, 
@@ -45,8 +53,8 @@ public class Monster
         this.maxHealth = maxHealth;
         currentHealth = maxHealth;
         this.speed = speed;
-        this.defense = defense;
         this.attack = attack;
+        this.defense = defense;
 
         this.moves = new MovesDatabase.Moves[4];
         this.moves[0] = one;
@@ -55,26 +63,43 @@ public class Monster
         this.moves[3] = four;
     }
 
-    public Monster(Monster mon)
+    // Compare move attribute to Pokemon attribute
+    public bool isWeakTo(AttributeDatabase attributes, AttributeDatabase.Attribute move)
     {
-        this.monsterName = mon.monsterName;
-        this.type = mon.type;
-        this.maxHealth = mon.maxHealth;
-        currentHealth = mon.maxHealth;
-        this.speed = mon.speed;
-        this.defense = mon.defense;
-        this.attack = mon.attack;
-
-        this.moves = new MovesDatabase.Moves[4];
-        this.moves[0] = mon.moves[0];
-        this.moves[1] = mon.moves[1];
-        this.moves[2] = mon.moves[2];
-        this.moves[3] = mon.moves[3];
+        return attributes.isWeakTo(type, move);
     }
 
+    public bool isGoodAgainst(AttributeDatabase attributes, AttributeDatabase.Attribute move)
+    {
+        return attributes.isGoodAgainst(type, move);
+    }
+
+    // Accessors
+    public int getSpeed()
+    {
+        return speed;
+    }
+
+    public int getAttack()
+    {
+        return attack;
+    }
+
+    // current health compared to max
+    public double getHealthPercent()
+    {
+        return ((double)currentHealth / maxHealth) * 100;
+    }
+
+    // Change Pokemon stats based on Moves effect(attack type)
+
+    // Reduce health based move attribute and Pokemon attribute
     public bool takeDamage(int attack, Move move, AttributeDatabase AB)
     {
+        // Damage to be taken
         int damage = 0;
+
+        // Compare attributes
         if (isWeakTo(AB, move.damageType))
         {
             damage = move.damage + (move.damage / 2);
@@ -88,58 +113,37 @@ public class Monster
             damage = move.damage;
         }
 
+        // Take damage based on other stats
         currentHealth -= attack + damage - defense;
 
+        // Return if Pokemon fainted
         return currentHealth <= 0;
     }
 
-    public void usePotion(Move move)
+    // Increase health
+    public void healthIncrease(Move move)
     {
-        // The healing does negative damage
+        // healing does negative damage
         currentHealth -= move.damage;
 
+        // Make sure current health is not over max
         if (currentHealth > maxHealth) currentHealth = maxHealth;
     }
 
-    public bool isWeakTo(AttributeDatabase attributes, AttributeDatabase.Attribute move)
-    {
-        return attributes.isWeakTo(type, move);
-    }
-
-    public bool isGoodAgainst(AttributeDatabase attributes, AttributeDatabase.Attribute move)
-    {
-        return attributes.isGoodAgainst(type, move);
-    }
-
-    public int getSpeed()
-    {
-        return speed;
-    }
-
-    public int getAttack()
-    {
-        return attack;
-    }
-
-    public double getHealthPercent()
-    {
-        return ((double)currentHealth / maxHealth) * 100;
-    }
-
+    // Reduce stats
     public void debuff(Move move)
     {
         speed--;
         defense--;
         attack--;
 
+        // Minimum of 1
         if (speed < 1) speed = 1;
-
         if (defense < 1) defense = 1;
-
         if (attack < 1) attack = 1;
-
     }
 
+    // Increase stats
     public void buff(Move move)
     {
         speed++;

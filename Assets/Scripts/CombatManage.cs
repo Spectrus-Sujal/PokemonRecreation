@@ -174,7 +174,7 @@ public class CombatManage : MonoBehaviour
 
             case Move.attackType.Heal:
                 dialogue.text = attacker.monsterName + " used a potion";
-                attacker.usePotion(move);
+                attacker.healthIncrease(move);
                 break;
 
             case Move.attackType.Run:
