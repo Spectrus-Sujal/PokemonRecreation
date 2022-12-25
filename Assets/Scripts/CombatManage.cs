@@ -8,7 +8,7 @@ using Random = System.Random;
 public class CombatManage : MonoBehaviour
 {
     MovesDatabase moveData;
-    MonsterDatabase monsterData;
+    PokemonDatabase pokeData;
     AttributeDatabase attributeData;
 
     [SerializeField] private TextMeshProUGUI dialogue;
@@ -30,7 +30,7 @@ public class CombatManage : MonoBehaviour
     void Awake()
     {
         attributeData = GetComponent<AttributeDatabase>();
-        monsterData = GetComponent<MonsterDatabase>();
+        pokeData = GetComponent<PokemonDatabase>();
         moveData = GetComponent<MovesDatabase>();
     }
 
@@ -38,11 +38,11 @@ public class CombatManage : MonoBehaviour
     {
         Random rand = new Random();
 
-        enemyIndex = rand.Next(monsterData.MonstersList.Count);
+        enemyIndex = rand.Next(pokeData.PokemonList.Count);
 
-        enemy = new Monster(monsterData.MonstersList[enemyIndex]);
+        enemy = new Monster(pokeData.PokemonList[enemyIndex]);
 
-        player = new Monster(monsterData.MonstersList[playerIndex]);
+        player = new Monster(pokeData.PokemonList[playerIndex]);
     }
 
     public Monster getPlayer() { return player; }

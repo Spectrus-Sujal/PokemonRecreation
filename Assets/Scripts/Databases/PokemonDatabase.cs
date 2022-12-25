@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// A script containing all monsters and their information
-/// as well as where new monsters are added
+/// A script containing all Pokemon and their information
+/// as well as where new Pokemon are added
 /// </summary>
-public class MonsterDatabase : MonoBehaviour
+public class PokemonDatabase : MonoBehaviour
 {
+    // Access to the moves database
     MovesDatabase MD;
 
-    public List<Monster> MonstersList = new List<Monster>();
+    // List containing all Pokemon
+    public List<Monster> PokemonList = new List<Monster>();
 
+    // Names of Pokemon created
+    // Used to access Pokemon from PokemonList
     public enum Monsters
     {
         Treeko,
@@ -43,7 +47,7 @@ public class MonsterDatabase : MonoBehaviour
             MovesDatabase.Moves.Empty,
             MonsterSpritesBack[0], MonsterSpritesFront[0]);
 
-        MonstersList.Add(Treeko);
+        PokemonList.Add(Treeko);
 
         Monster Torchic = new Monster("Torchic", AttributeDatabase.Attribute.Fire,
             18, 10, 8, 9,
@@ -53,7 +57,7 @@ public class MonsterDatabase : MonoBehaviour
             MovesDatabase.Moves.Empty,
             MonsterSpritesBack[1], MonsterSpritesFront[1]);
         
-        MonstersList.Add(Torchic);
+        PokemonList.Add(Torchic);
 
         Monster Mudkip = new Monster("Mudkip", AttributeDatabase.Attribute.Water,
             24, 5, 14, 6,
@@ -63,7 +67,7 @@ public class MonsterDatabase : MonoBehaviour
             MovesDatabase.Moves.Empty,
             MonsterSpritesBack[2], MonsterSpritesFront[2]);
         
-        MonstersList.Add(Mudkip);
+        PokemonList.Add(Mudkip);
 
         Monster Machop = new Monster("Machop", AttributeDatabase.Attribute.Fight,
             14, 12, 4, 14,
@@ -73,7 +77,7 @@ public class MonsterDatabase : MonoBehaviour
             MovesDatabase.Moves.Empty,
             MonsterSpritesBack[3], MonsterSpritesFront[3]);
         
-        MonstersList.Add(Machop);
+        PokemonList.Add(Machop);
 
         Monster Infernape = new Monster("Infernape", AttributeDatabase.Attribute.Fire,
             30, 15, 10, 20,
@@ -83,6 +87,6 @@ public class MonsterDatabase : MonoBehaviour
             MovesDatabase.Moves.DragonDance,
             MonsterSpritesBack[4], MonsterSpritesFront[4]);
         
-        MonstersList.Add(Infernape);
+        PokemonList.Add(Infernape);
     }
 }
