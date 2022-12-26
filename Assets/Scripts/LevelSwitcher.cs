@@ -20,7 +20,7 @@ public class LevelSwitcher : MonoBehaviour
     void assignPokemon(TMP_Dropdown change)
     {
         player = PokemonDatabase.PokemonList[change.value];
-        combatManager.GetComponent<CombatManage>().assignPlayer(player, change.value);
+        combatManager.GetComponent<CombatManager>().assignPlayer(player, change.value);
     }
 
     // Update is called once per frame

@@ -5,8 +5,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = System.Random;
 
-public class CombatManage : MonoBehaviour
+public class CombatManager : MonoBehaviour
 {
+    //
     [SerializeField] private TextMeshProUGUI dialogue;
     [SerializeField] private GameObject playerGO;
     [SerializeField] private GameObject enemyGO;
@@ -64,7 +65,7 @@ public class CombatManage : MonoBehaviour
                 playerGO.SetActive(false);
                 yield return new WaitForSeconds(2f);
                 
-                SceneManager.LoadScene("");
+                SceneManager.LoadScene("Fight");
             }
         }
         else
@@ -84,14 +85,13 @@ public class CombatManage : MonoBehaviour
                 enemyGO.SetActive(false);
                 yield return new WaitForSeconds(2f);
 
-                SceneManager.LoadScene("");
+                SceneManager.LoadScene("Fight");
             }
         }
 
         dialogue.text = "Choose your next Move";
         gamePaused = false;
 
-        
     }
 
     void autoSelectMove(ref Pokemon attacker, ref Pokemon target)
@@ -110,11 +110,11 @@ public class CombatManage : MonoBehaviour
             Move currentMove = MovesDatabase.MovesList[(int)attacker.moves[i]];
             if (target.isWeakTo(currentMove.damageType))
             {
-                weight[i]--;
+                weight[i]++;
             }
             else if (attacker.isGoodAgainst(currentMove.damageType))
             {
-                weight[i]++;
+                weight[i]--;
             }
 
             if (currentMove.effect == Move.attackType.Regular)
