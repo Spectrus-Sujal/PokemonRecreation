@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// This class is used to create attributes which are the basis
-/// for what type the Pokemon is and what it is
+/// for what type the Pokemons is and what it is
 /// weak and strong against
 /// </summary>
 public class Attributes

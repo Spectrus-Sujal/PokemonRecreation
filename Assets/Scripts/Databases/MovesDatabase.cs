@@ -2,8 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// This contains all Moves and their info
+/// </summary>
 public class MovesDatabase : MonoBehaviour
 {
+    /* Instructions to Create a new Move
+
+     1. Write the Move name in the public enum Moves
+     2. Write New Move( (String)Name, (int)Damage(Negative if healing), 
+                       (AttributeDatabase.Attribute) damageType, 
+                       (Move.attackType) Effect)
+    */
+
+    // Name of all Moves
+    // Used to reference that move from MoveList
     public enum Moves
     {
         Empty,
@@ -20,7 +34,8 @@ public class MovesDatabase : MonoBehaviour
         Run
     }
 
-    public List<Move> MovesList = new List<Move>()
+    // A list containing all moves and their data
+    public static readonly List<Move> MovesList = new List<Move>()
     {
         new Move(),
 

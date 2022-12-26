@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class HUDManager : MonoBehaviour
 {
-    Monster player;
-    Monster enemy;
+    Pokemon player;
+    Pokemon enemy;
     
     [SerializeField] private TextMeshProUGUI playerName;
     [SerializeField] private Slider playerHealth;
@@ -51,7 +51,7 @@ public class HUDManager : MonoBehaviour
         enemyHealth.value = (float)enemy.getHealthPercent();
     }
 
-    public Monster getPlayer()
+    public Pokemon getPlayer()
     {
         return player;
     }

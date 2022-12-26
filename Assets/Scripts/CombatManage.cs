@@ -7,17 +7,13 @@ using Random = System.Random;
 
 public class CombatManage : MonoBehaviour
 {
-    MovesDatabase moveData;
-    PokemonDatabase pokeData;
-    AttributeDatabase attributeData;
-
     [SerializeField] private TextMeshProUGUI dialogue;
     [SerializeField] private GameObject playerGO;
     [SerializeField] private GameObject enemyGO;
 
-    static Monster player;
+    static Pokemon player;
     private static int playerIndex = 0;
-    static Monster enemy;
+    static Pokemon enemy;
     private static int enemyIndex = 0;
 
     private bool gameOver = false;
@@ -25,33 +21,24 @@ public class CombatManage : MonoBehaviour
 
    // private bool isPlayerFirst = false;
 
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        attributeData = GetComponent<AttributeDatabase>();
-        pokeData = GetComponent<PokemonDatabase>();
-        moveData = GetComponent<MovesDatabase>();
-    }
-
     void Start()
     {
         Random rand = new Random();
 
-        enemyIndex = rand.Next(pokeData.PokemonList.Count);
+        enemyIndex = rand.Next(PokemonDatabase.PokemonList.Count);
 
-        enemy = new Monster(pokeData.PokemonList[enemyIndex]);
+        enemy = new Pokemon(PokemonDatabase.PokemonList[enemyIndex]);
 
-        player = new Monster(pokeData.PokemonList[playerIndex]);
+        player = new Pokemon(PokemonDatabase.PokemonList[playerIndex]);
     }
 
-    public Monster getPlayer() { return player; }
+    public Pokemon getPlayer() { return player; }
 
-    public Monster getEnemy() { return enemy; }
+    public Pokemon getEnemy() { return enemy; }
 
-    public void assignPlayer(Monster p, int index)
+    public void assignPlayer(Pokemon p, int index)
     {
-        player = new Monster(p);
+        player = new Pokemon(p);
         playerIndex = index;
     }
 
@@ -107,7 +94,7 @@ public class CombatManage : MonoBehaviour
         
     }
 
-    void autoSelectMove(ref Monster attacker, ref Monster target)
+    void autoSelectMove(ref Pokemon attacker, ref Pokemon target)
     {
         int[] weight = {1, 1, 1, 1};
 
@@ -120,12 +107,12 @@ public class CombatManage : MonoBehaviour
 
         for (int i = 0; i < 4; i++)
         {
-            Move currentMove = moveData.MovesList[(int)attacker.moves[i]];
-            if (target.isWeakTo(attributeData, currentMove.damageType))
+            Move currentMove = MovesDatabase.MovesList[(int)attacker.moves[i]];
+            if (target.isWeakTo(currentMove.damageType))
             {
                 weight[i]--;
             }
-            else if (attacker.isGoodAgainst(attributeData, currentMove.damageType))
+            else if (attacker.isGoodAgainst(currentMove.damageType))
             {
                 weight[i]++;
             }
@@ -152,9 +139,9 @@ public class CombatManage : MonoBehaviour
 
     }
 
-    void doMove(MovesDatabase.Moves moveName, Monster attacker, Monster target)
+    void doMove(MovesDatabase.Moves moveName, Pokemon attacker, Pokemon target)
     {
-        Move move = moveData.MovesList[(int)moveName];
+        Move move = MovesDatabase.MovesList[(int)moveName];
         dialogue.text = attacker.monsterName + " used " + move.moveName;
         switch (move.effect)
         {
@@ -187,7 +174,7 @@ public class CombatManage : MonoBehaviour
 
             default:
                 dialogue.text += " to attack " + target.monsterName;
-                if (target.takeDamage(move.damage, move, attributeData))
+                if (target.takeDamage(move.damage, move))
                 {
                     gameOver = true;
                 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Moves that Pokemon can use in combat
+/// Moves that Pokemons can use in combat
 /// </summary>
 public class Move
 {

@@ -2594,8 +2594,6 @@ GameObject:
   - component: {fileID: 1347378124}
   - component: {fileID: 1347378123}
   - component: {fileID: 1347378125}
-  - component: {fileID: 1347378126}
-  - component: {fileID: 1347378127}
   m_Layer: 0
   m_Name: CombatManager
   m_TagString: Untagged
@@ -2658,30 +2656,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 32f4d4c05ea7db146b8a292da12b4499, type: 3}
   - {fileID: 21300000, guid: aebcc692d2379a440a449d4d825bc867, type: 3}
   - {fileID: 21300000, guid: 1b3277e8695992841a4ba4bd3071cb6a, type: 3}
---- !u!114 &1347378126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1347378122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0c8b18cc96582b479f018c542a84adb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1347378127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1347378122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 001296c4274f51542855b754deface8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1399881612
 GameObject:
   m_ObjectHideFlags: 0

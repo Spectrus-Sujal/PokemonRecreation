@@ -5,10 +5,10 @@ using UnityEngine;
 using Random = System.Random;
 
 /// <summary>
-/// The basis for all Pokemon, containing 
-/// all components a Pokemon needs
+/// The basis for all Pokemons, containing 
+/// all components a Pokemons needs
 /// </summary>
-public class Monster
+public class Pokemon
 {
     ////////// Stats //////////
     public string monsterName;
@@ -21,14 +21,16 @@ public class Monster
     private int currentHealth;
 
     public MovesDatabase.Moves[] moves;
-    //////////      //////////
 
+    // Player Side
     public Sprite backPose;
+    // Enemy Side
     public Sprite frontPose;
+    //////////      //////////
 
     //Constructors 
     // Make a new monster based on an existing one
-    public Monster(Monster mon)
+    public Pokemon(Pokemon mon)
     {
         this.monsterName = mon.monsterName;
         this.type = mon.type;
@@ -49,8 +51,8 @@ public class Monster
     }
 
     // New monster with all stats
-    public Monster(string monsterName, AttributeDatabase.Attribute type, 
-        int maxHealth, int speed, int defense, int attack, 
+    public Pokemon(string monsterName, AttributeDatabase.Attribute type, 
+        int maxHealth, int speed, int attack, int defense, 
         MovesDatabase.Moves one, MovesDatabase.Moves two, 
         MovesDatabase.Moves three, MovesDatabase.Moves four,
         Sprite back, Sprite front)
@@ -73,15 +75,15 @@ public class Monster
         this.frontPose = front;
     }
 
-    // Compare move attribute to Pokemon attribute
-    public bool isWeakTo(AttributeDatabase attributes, AttributeDatabase.Attribute move)
+    // Compare move attribute to Pokemons attribute
+    public bool isWeakTo(AttributeDatabase.Attribute move)
     {
-        return attributes.isWeakTo(type, move);
+        return AttributeDatabase.isWeakTo(type, move);
     }
 
-    public bool isGoodAgainst(AttributeDatabase attributes, AttributeDatabase.Attribute move)
+    public bool isGoodAgainst(AttributeDatabase.Attribute move)
     {
-        return attributes.isGoodAgainst(type, move);
+        return AttributeDatabase.isGoodAgainst(type, move);
     }
 
     // Accessors
@@ -101,20 +103,20 @@ public class Monster
         return ((double)currentHealth / maxHealth) * 100;
     }
 
-    // Change Pokemon stats based on Moves effect(attack type)
+    // Change Pokemons stats based on Moves effect(attack type)
 
-    // Reduce health based move attribute and Pokemon attribute
-    public bool takeDamage(int attack, Move move, AttributeDatabase AB)
+    // Reduce health based move attribute and Pokemons attribute
+    public bool takeDamage(int attack, Move move)
     {
         // Damage to be taken
         int damage = 0;
 
         // Compare attributes
-        if (isWeakTo(AB, move.damageType))
+        if (isWeakTo(move.damageType))
         {
             damage = move.damage + (move.damage / 2);
         }
-        else if (isGoodAgainst(AB, move.damageType))
+        else if (isGoodAgainst(move.damageType))
         {
             damage = move.damage / 2;
         }
@@ -126,7 +128,7 @@ public class Monster
         // Take damage based on other stats
         currentHealth -= attack + damage - defense;
 
-        // Return if Pokemon fainted
+        // Return if Pokemons fainted
         return currentHealth <= 0;
     }
 
