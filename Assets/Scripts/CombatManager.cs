@@ -5,6 +5,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = System.Random;
 
+/// <summary>
+/// Handle all aspects of turn-based combat between two Pokemon.
+/// This includes executing all moves as well as update the state of both Pokemon.
+/// As well as handle player input if they try to escape from the other pokemon,
+/// Attack it, or heal themselves.
+/// </summary>
 public class CombatManager : MonoBehaviour
 {
     //Visual indication of change in state
@@ -185,6 +191,7 @@ public class CombatManager : MonoBehaviour
 
     }
 
+    // Execute a move based on who is using it and on who
     void doMove(MovesDatabase.Moves moveName, Pokemon attacker, Pokemon target)
     {
         // Set reference to move ding done
