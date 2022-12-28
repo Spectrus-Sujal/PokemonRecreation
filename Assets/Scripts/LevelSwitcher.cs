@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class LevelSwitcher : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown pokSelector;
-    public Pokemon player;
 
     [SerializeField] private Transform combatManager;
 
@@ -19,8 +18,7 @@ public class LevelSwitcher : MonoBehaviour
 
     void assignPokemon(TMP_Dropdown change)
     {
-        player = PokemonDatabase.PokemonList[change.value];
-        combatManager.GetComponent<CombatManager>().assignPlayer(player, change.value);
+        combatManager.GetComponent<CombatManager>().assignPlayer(change.value);
     }
 
     // Update is called once per frame

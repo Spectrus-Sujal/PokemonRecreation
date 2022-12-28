@@ -11,7 +11,7 @@ using Random = System.Random;
 public class Pokemon
 {
     ////////// Stats //////////
-    public string monsterName;
+    public string pokemonName;
     private AttributeDatabase.Attribute type;
     private int maxHealth;
     private int speed;
@@ -32,7 +32,7 @@ public class Pokemon
     // Make a new monster based on an existing one
     public Pokemon(Pokemon mon)
     {
-        this.monsterName = mon.monsterName;
+        this.pokemonName = mon.pokemonName;
         this.type = mon.type;
         this.maxHealth = mon.maxHealth;
         currentHealth = mon.maxHealth;
@@ -51,13 +51,13 @@ public class Pokemon
     }
 
     // New monster with all stats
-    public Pokemon(string monsterName, AttributeDatabase.Attribute type, 
+    public Pokemon(string pokemonName, AttributeDatabase.Attribute type, 
         int maxHealth, int speed, int attack, int defense, 
         MovesDatabase.Moves one, MovesDatabase.Moves two, 
         MovesDatabase.Moves three, MovesDatabase.Moves four,
         Sprite back, Sprite front)
     {
-        this.monsterName = monsterName;
+        this.pokemonName = pokemonName;
         this.type = type;
         this.maxHealth = maxHealth;
         currentHealth = maxHealth;

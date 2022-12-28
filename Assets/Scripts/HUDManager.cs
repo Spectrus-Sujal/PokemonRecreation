@@ -24,12 +24,12 @@ public class HUDManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI move4;
 
     [SerializeField] private Transform CombatManager;
-    private CombatManage cm;
+    private CombatManager cm;
 
     // Start is called before the first frame update
     void Start()
     {
-        cm = CombatManager.GetComponent<CombatManage>();
+        cm = CombatManager.GetComponent<CombatManager>();
         player = cm.getPlayer();
         enemy = cm.getEnemy();
 
@@ -38,8 +38,8 @@ public class HUDManager : MonoBehaviour
         move3.text = player.moves[2].ToString();
         move4.text = player.moves[3].ToString();
 
-        playerName.text = player.monsterName;
-        enemyName.text = enemy.monsterName;
+        playerName.text = player.pokemonName;
+        enemyName.text = enemy.pokemonName;
 
         playerTransform.GetComponent<SpriteRenderer>().sprite = player.backPose;
         enemyTransform.GetComponent<SpriteRenderer>().sprite = enemy.frontPose;
