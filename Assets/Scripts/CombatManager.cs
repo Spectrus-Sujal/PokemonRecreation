@@ -239,7 +239,7 @@ public class CombatManager : MonoBehaviour
             case Move.attackType.Buff:
                 // Declare what is being done to player
                 dialogue.text += " and increased it's stats";
-                target.buff(move);
+                attacker.buff(move);
                 break;
 
             // Reduce targets stats

@@ -113,23 +113,25 @@ public class Pokemon : ScriptableObject
     {
         // Damage to be taken
         // Take damage based on other stats
-        int damage = move.damage + attack - defense;
+        int damage = attack;
 
         // Compare attributes
         if (isWeakTo(move.damageType))
         {
-            damage = move.damage + (move.damage / 2);
+            damage += move.damage + (move.damage / 2);
         }
         else if (isGoodAgainst(move.damageType))
         {
-            damage = move.damage / 2;
+            damage += move.damage / 2;
         }
         else
         {
-            damage = move.damage;
+            damage += move.damage;
         }
 
-        if (damage < 0) damage = 0;
+        damage -= defense;
+
+        if (damage <= 0) damage = 1;
 
         currentHealth -= damage;
 
@@ -150,9 +152,9 @@ public class Pokemon : ScriptableObject
     // Reduce stats
     public void debuff(Move move)
     {
-        speed -= 2;
-        defense -= 2;
-        attack -= 2;
+        speed--;
+        defense--;
+        attack--;
 
         // Minimum of 1
         if (speed < 1) speed = 1;
@@ -163,8 +165,8 @@ public class Pokemon : ScriptableObject
     // Increase stats
     public void buff(Move move)
     {
-        speed += 2;
-        defense += 2;
-        attack += 2;
+        speed++;
+        defense++;
+        attack++;
     }
 }
