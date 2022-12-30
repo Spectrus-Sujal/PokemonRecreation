@@ -113,7 +113,7 @@ public class Pokemon : ScriptableObject
     {
         // Damage to be taken
         // Take damage based on other stats
-        int damage = attack;
+        int damage = attack - defense;
 
         // Compare attributes
         if (isWeakTo(move.damageType))
@@ -128,8 +128,6 @@ public class Pokemon : ScriptableObject
         {
             damage += move.damage;
         }
-
-        damage -= defense;
 
         if (damage <= 0) damage = 1;
 
@@ -165,8 +163,8 @@ public class Pokemon : ScriptableObject
     // Increase stats
     public void buff(Move move)
     {
-        speed++;
-        defense++;
-        attack++;
+        speed += 2;
+        defense += 2;
+        attack += 2;
     }
 }

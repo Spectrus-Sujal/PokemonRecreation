@@ -22,6 +22,8 @@ public class CombatManager : MonoBehaviour
 
     public static int playerWins = 0;
 
+    static int potionsLeft = 20;
+
     //Player reference in PokemonDatabase
     static Pokemon player;
     private static int playerIndex = 0;
@@ -158,7 +160,7 @@ public class CombatManager : MonoBehaviour
 
         // If low Health
         // High chance of choosing to heal
-        if (attacker.getHealthPercent() < 30 && rand.Next(100) < 70)
+        if (attacker.getHealthPercent() < 20 && rand.Next(100) < 50)
         {
             // Use a potion
             doMove(MovesDatabase.Moves.Potion, attacker, target);
@@ -251,9 +253,29 @@ public class CombatManager : MonoBehaviour
 
             // Heal user
             case Move.attackType.Heal:
-                dialogue.text = attacker.pokemonName 
-                                + " used " + move.moveName + " to heal itself";
-                attacker.healthIncrease(move);
+                if (attacker == player)
+                {
+                    if (potionsLeft > 0)
+                    {
+                        potionsLeft--;
+                        dialogue.text = attacker.pokemonName 
+                                        + " used " + move.moveName + " to heal itself. Potions left: " + potionsLeft;
+                        attacker.healthIncrease(move);
+                    }
+                    else
+                    {
+                        dialogue.text = attacker.pokemonName 
+                                        + " tried to use " + move.moveName + " but ran out of uses";
+                    }
+                }
+                else
+                {
+                    dialogue.text = attacker.pokemonName 
+                                    + " used " + move.moveName + " to heal itself.";
+                    attacker.healthIncrease(move);
+                }
+                
+                
                 break;
 
             // Player tries to escape from the enemy
