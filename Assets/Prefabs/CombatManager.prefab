@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2853701290993975742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2853701290993975736}
+  - component: {fileID: 2853701290993975743}
+  m_Layer: 0
+  m_Name: CombatManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2853701290993975736
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853701290993975742}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.2776682, y: 8.478423, z: -8.530165}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2853701290993975743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2853701290993975742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e87bff4ff0331544b8e72bbb8948f01f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue: {fileID: 0}
+  playerGO: {fileID: 8904236837799328074, guid: a59c2a3026604c843aad4f2b377f255a, type: 3}
+  enemyGO: {fileID: 8820535875479893642, guid: 0096f5ec00893d346b79061e8f592fdf, type: 3}
+  pokemons:
+  - {fileID: 11400000, guid: 31138ae34b6726340bfca5c5dbf65e4b, type: 2}
+  - {fileID: 11400000, guid: ea78f26f64ce1f24c8435ad90dcdde5b, type: 2}
+  - {fileID: 11400000, guid: 57819c6ea727db243932b40db417e033, type: 2}
+  - {fileID: 11400000, guid: 46bf2b4580020eb40948a19971315c2b, type: 2}
+  - {fileID: 11400000, guid: b8942fad6e7e6894389bd4199878fd5d, type: 2}
+  gamePaused: 0

@@ -26,6 +26,8 @@ public class CombatManager : MonoBehaviour
     static Pokemon enemy;
     private static int enemyIndex = 0;
 
+    [SerializeField] private Pokemon[] pokemons;
+
     //Game state
     private bool gameOver = false;
     public bool gamePaused = false;
@@ -43,8 +45,8 @@ public class CombatManager : MonoBehaviour
 
         // Assign a new enemy whenever combat starts
         Random rand = new Random();
-        enemyIndex = rand.Next(PokemonDatabase.PokemonList.Count);
-        enemy = new Pokemon(PokemonDatabase.PokemonList[enemyIndex]);
+        enemyIndex = rand.Next(pokemons.Length);
+        enemy = new Pokemon(pokemons[enemyIndex]);
     }
 
     public Pokemon getPlayer() { return player; }
@@ -54,7 +56,7 @@ public class CombatManager : MonoBehaviour
     public void assignPlayer(int index)
     {
         playerIndex = index;
-        player = new Pokemon(PokemonDatabase.PokemonList[playerIndex]);
+        player = new Pokemon(pokemons[playerIndex]);
     }
 
     // Go through core combat
@@ -88,7 +90,7 @@ public class CombatManager : MonoBehaviour
                 yield return new WaitForSeconds(pauseTime);
 
                 // Restart Game
-                SceneManager.LoadScene("Choose");
+                SceneManager.LoadScene("Fight");
             }
             else
             {
@@ -167,7 +169,17 @@ public class CombatManager : MonoBehaviour
             if (currentMove.effect == Move.attackType.Regular)
             {
                 weight[i]++;
+
+                for(int j = 0; j < 4; j++)
+                {
+                    Move otherMove = MovesDatabase.MovesList[(int)attacker.moves[j]];
+                    if (currentMove.damage > otherMove.damage)
+                    {
+                        weight[i]++;
+                    }
+                }
             }
+
         }
 
         // Set first move to heaviest

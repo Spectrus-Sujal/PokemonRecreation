@@ -8,15 +8,18 @@ using Random = System.Random;
 /// The basis for all Pokemons, containing 
 /// all components a Pokemons needs
 /// </summary>
-public class Pokemon
+
+[CreateAssetMenu(fileName = "NewPokemon", menuName = "Pokemon")]
+
+public class Pokemon : ScriptableObject
 {
     ////////// Stats //////////
     public string pokemonName;
-    private AttributeDatabase.Attribute type;
-    private int maxHealth;
-    private int speed;
-    private int attack;
-    private int defense;
+    public AttributeDatabase.Attribute type;
+    public int maxHealth;
+    public int speed;
+    public int attack;
+    public int defense;
 
     private int currentHealth;
 

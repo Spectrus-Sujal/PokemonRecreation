@@ -54,6 +54,7 @@ public class PokemonDatabase : MonoBehaviour
 
     // Add monsters to MonsterList as soon as game starts
     // Due to other scripts needing to load before this
+
     void Awake()
     {
         addMonsters();
