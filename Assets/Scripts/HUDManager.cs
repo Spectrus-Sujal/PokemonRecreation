@@ -62,9 +62,13 @@ public class HUDManager : MonoBehaviour
 
         int health = (int)(player.maxHealth * (player.getHealthPercent() / 100));
 
+        if (health < 0) health = 0;
+
         playerHealthNum.text = health.ToString();
 
         health = (int)(enemy.maxHealth * (enemy.getHealthPercent() / 100));
+
+        if (health < 0) health = 0;
         enemyHealthNum.text = health.ToString();
     }
 

@@ -244,7 +244,7 @@ public class CombatManager : MonoBehaviour
 
             // Reduce targets stats
             case Move.attackType.Debuff:
-                dialogue.text += " and put and decreased the stats of " 
+                dialogue.text += " and decreased the stats of " 
                                  + target.pokemonName;
                 target.debuff(move);
                 break;
