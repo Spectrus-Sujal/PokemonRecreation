@@ -658,32 +658,10 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 0
   m_Options:
-    m_Options:
-    - m_Text: Treeko
-      m_Image: {fileID: 0}
-    - m_Text: Torchic
-      m_Image: {fileID: 0}
-    - m_Text: Mudkip
-      m_Image: {fileID: 0}
-    - m_Text: Machop
-      m_Image: {fileID: 0}
-    - m_Text: Infernape
-      m_Image: {fileID: 0}
+    m_Options: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11500000, guid: fd0c3030175c41b45942a94ae485839a, type: 3}
-        m_TargetAssemblyTypeName: UnityEngine.Object, UnityEngine
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: CombatManage
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &402479343
 MonoBehaviour:
@@ -1001,7 +979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pokSelector: {fileID: 402479342}
-  combatManager: {fileID: 0}
+  combatManager: {fileID: 1231122672}
 --- !u!4 &624486523
 Transform:
   m_ObjectHideFlags: 0
@@ -1488,6 +1466,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1231122672 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2853701290993975736, guid: 2088b58ce325908458935440dfacdfe4, type: 3}
+  m_PrefabInstance: {fileID: 1002379661}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1396091224
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,7 +1529,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Treeko
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

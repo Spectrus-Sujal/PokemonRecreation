@@ -10,26 +10,33 @@ public class HUDManager : MonoBehaviour
     Pokemon player;
     Pokemon enemy;
     
+    [Header("Player")]
     [SerializeField] private TextMeshProUGUI playerName;
     [SerializeField] private Slider playerHealth;
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private TextMeshProUGUI enemyName;
-    [SerializeField] private Slider enemyHealth;
-    [SerializeField] private Transform enemyTransform;
+    [SerializeField] private TextMeshProUGUI playerHealthNum;
 
-    
+    [SerializeField] private TextMeshProUGUI winCounter;
+
     [SerializeField] TextMeshProUGUI move1;
     [SerializeField] TextMeshProUGUI move2;
     [SerializeField] TextMeshProUGUI move3;
     [SerializeField] TextMeshProUGUI move4;
 
-    [SerializeField] private Transform CombatManager;
+    [Header("Enemy")]
+    [SerializeField] private TextMeshProUGUI enemyName;
+    [SerializeField] private Slider enemyHealth;
+    [SerializeField] private Transform enemyTransform;
+    [SerializeField] private TextMeshProUGUI enemyHealthNum;
+
+    [Header("Combate Manager")]
+    [SerializeField] private Transform CombatManage;
     private CombatManager cm;
 
     // Start is called before the first frame update
     void Start()
     {
-        cm = CombatManager.GetComponent<CombatManager>();
+        cm = CombatManage.GetComponent<CombatManager>();
         player = cm.getPlayer();
         enemy = cm.getEnemy();
 
@@ -43,12 +50,22 @@ public class HUDManager : MonoBehaviour
 
         playerTransform.GetComponent<SpriteRenderer>().sprite = player.backPose;
         enemyTransform.GetComponent<SpriteRenderer>().sprite = enemy.frontPose;
+
+        winCounter.text = "Number of Wins: " + CombatManager.playerWins;
+
     }
 
     void Update()
     {
         playerHealth.value = (float)player.getHealthPercent();
         enemyHealth.value = (float)enemy.getHealthPercent();
+
+        int health = (int)(player.maxHealth * (player.getHealthPercent() / 100));
+
+        playerHealthNum.text = health.ToString();
+
+        health = (int)(enemy.maxHealth * (enemy.getHealthPercent() / 100));
+        enemyHealthNum.text = health.ToString();
     }
 
     public Pokemon getPlayer()

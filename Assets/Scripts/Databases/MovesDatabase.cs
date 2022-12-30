@@ -57,7 +57,7 @@ public class MovesDatabase : MonoBehaviour
 
         new Move("Seismic Toss", 20, AttributeDatabase.Attribute.Fight, Move.attackType.Regular),
 
-        new Move("Potion", -20, AttributeDatabase.Attribute.Normal, Move.attackType.Heal),
+        new Move("Potion", 20, AttributeDatabase.Attribute.Normal, Move.attackType.Heal),
 
         new Move("Run", 0, AttributeDatabase.Attribute.Normal, Move.attackType.Run)
     };

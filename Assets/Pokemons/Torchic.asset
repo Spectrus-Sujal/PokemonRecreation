@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02671835efa71e44b9faa7e7b2753715, type: 3}
   m_Name: Torchic
   m_EditorClassIdentifier: 
-  pokemonName: Treeko
-  type: 2
-  maxHealth: 30
-  speed: 15
-  attack: 6
-  defense: 7
-  moves: 07000000010000000400000000000000
-  backPose: {fileID: 21300000, guid: e082f92f13c33fc408397f73b3f438a7, type: 3}
-  frontPose: {fileID: 21300000, guid: 4bdce5f1bdd337545a11c7b2351195fc, type: 3}
+  pokemonName: Torchic
+  type: 0
+  maxHealth: 10
+  speed: 10
+  attack: 10
+  defense: 5
+  moves: 06000000020000000000000000000000
+  backPose: {fileID: 21300000, guid: 8d7b8aad866207340b459ecc4c6967b2, type: 3}
+  frontPose: {fileID: 21300000, guid: 957d7e82954154b4091932790ae525ec, type: 3}

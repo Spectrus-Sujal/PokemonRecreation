@@ -20,13 +20,15 @@ public class CombatManager : MonoBehaviour
     [SerializeField] private GameObject playerGO;
     [SerializeField] private GameObject enemyGO;
 
+    public static int playerWins = 0;
+
     //Player reference in PokemonDatabase
     static Pokemon player;
     private static int playerIndex = 0;
     static Pokemon enemy;
     private static int enemyIndex = 0;
 
-    [SerializeField] private Pokemon[] pokemons;
+    [SerializeField] public Pokemon[] pokemons;
 
     //Game state
     private bool gameOver = false;
@@ -82,15 +84,7 @@ public class CombatManager : MonoBehaviour
             // Check if game has ended
             if (gameOver)
             {
-                // Show player has fainted
-                dialogue.text = player.pokemonName + " has fainted";
-                // Make player disappear
-                playerGO.SetActive(false);
-
-                yield return new WaitForSeconds(pauseTime);
-
-                // Restart Game
-                SceneManager.LoadScene("Fight");
+                StartCoroutine(gameIsOver(player.getHealthPercent() <= 0, pauseTime));
             }
             else
             {
@@ -106,27 +100,52 @@ public class CombatManager : MonoBehaviour
 
             yield return new WaitForSeconds(pauseTime);
 
-            if (gameOver)
+            // Choose and do enemy move
+            if (!gameOver)
             {
-                dialogue.text = enemy.pokemonName + " has fainted";
-                enemyGO.SetActive(false);
-                yield return new WaitForSeconds(pauseTime);
-
-                SceneManager.LoadScene("Fight");
-            }
-            else
-            {
-                // Choose and do enemy move
                 autoSelectMove(ref enemy, ref player);
 
                 yield return new WaitForSeconds(pauseTime);
             }
         }
 
-        // Prompt player for next move
-        dialogue.text = "Choose your next Move";
-        // Return control to player
-        gamePaused = false;
+        if (gameOver)
+        {
+            StartCoroutine(gameIsOver(player.getHealthPercent() <= 0, pauseTime));
+        }
+        else
+        {
+            // Prompt player for next move
+            dialogue.text = "Choose your next Move";
+            // Return control to player
+            gamePaused = false;
+        }
+
+    }
+
+    // Display to the player that game is over
+    // Change state based on who won
+    IEnumerator gameIsOver(bool playerLost, float pauseTime)
+    {
+        if (playerLost)
+        {
+            // Show player has fainted
+            dialogue.text = player.pokemonName + " has fainted";
+            // Make player disappear
+            playerGO.SetActive(false);
+            yield return new WaitForSeconds(pauseTime);
+
+            // Restart Game
+            playerWins = 0;
+            SceneManager.LoadScene("Menu");
+        }
+
+        dialogue.text = enemy.pokemonName + " has fainted";
+        enemyGO.SetActive(false);
+        yield return new WaitForSeconds(pauseTime);
+
+        playerWins++;
+        SceneManager.LoadScene("Fight");
 
     }
 

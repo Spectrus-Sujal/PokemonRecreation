@@ -129,7 +129,11 @@ public class Pokemon : ScriptableObject
         }
 
         // Take damage based on other stats
-        currentHealth -= attack + damage - defense;
+        int dmg = attack + damage - defense;
+
+        if (dmg < 0) dmg = 0;
+
+        currentHealth -= dmg;
 
         // Return if Pokemons fainted
         return currentHealth <= 0;
@@ -138,8 +142,8 @@ public class Pokemon : ScriptableObject
     // Increase health
     public void healthIncrease(Move move)
     {
-        // healing does negative damage
-        currentHealth -= move.damage;
+        // heals damage amount
+        currentHealth += move.damage;
 
         // Make sure current health is not over max
         if (currentHealth > maxHealth) currentHealth = maxHealth;
