@@ -31,7 +31,11 @@ public class MovesDatabase : MonoBehaviour
         Howl,
         SeismicToss,
         Potion,
-        Run
+        Run,
+        FirePunch,
+        Tackle,
+        LowKick,
+        DefenseCurl
     }
 
     // A list containing all moves and their data
