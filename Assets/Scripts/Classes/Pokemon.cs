@@ -1,3 +1,4 @@
+using System.Reflection;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -109,11 +110,18 @@ public class Pokemon : ScriptableObject
     // Change Pokemons stats based on Moves effect(attack type)
 
     // Reduce health based move attribute and Pokemons attribute
-    public bool takeDamage(int attack, Move move)
+    void takeDamage(int enemyAttack, Move move)
     {
+        // Negative damage means healing
+        if(move.damage < 0) 
+        {
+            currentHealth -= move.damage;
+            return;
+        }
+
         // Damage to be taken
         // Take damage based on other stats
-        int damage = attack - defense;
+        int damage = enemyAttack - defense;
 
         // Compare attributes
         if (isWeakTo(move.damageType))
@@ -132,39 +140,35 @@ public class Pokemon : ScriptableObject
         if (damage <= 0) damage = 1;
 
         currentHealth -= damage;
-
-        // Return if Pokemons fainted
-        return currentHealth <= 0;
     }
 
-    // Increase health
-    public void healthIncrease(Move move)
+    public bool affectStat(Move move, int enemyAttack)
     {
-        // heals damage amount
-        currentHealth += move.damage;
+       switch (move.stat) 
+       {
+        case Move.statAffected.Health:
+            takeDamage(enemyAttack, move);
+            break;
 
-        // Make sure current health is not over max
-        if (currentHealth > maxHealth) currentHealth = maxHealth;
-    }
+        case Move.statAffected.Attack:
+            attack -= move.damage;
+            break;
 
-    // Reduce stats
-    public void debuff(Move move)
-    {
-        speed--;
-        defense--;
-        attack--;
+        case Move.statAffected.Defense:
+            defense -= move.damage;
+            break;
 
-        // Minimum of 1
+        case Move.statAffected.Speed:
+            speed -= move.damage;
+            break;
+       }
+
+       // Minimum of 1
         if (speed < 1) speed = 1;
         if (defense < 1) defense = 1;
         if (attack < 1) attack = 1;
-    }
 
-    // Increase stats
-    public void buff(Move move)
-    {
-        speed += 2;
-        defense += 2;
-        attack += 2;
+        // Return if Pokemons fainted
+        return currentHealth <= 0;
     }
 }

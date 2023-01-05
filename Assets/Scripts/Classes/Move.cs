@@ -8,16 +8,16 @@ using UnityEngine;
 public class Move
 {
     // The effects that moves can have
-    public enum attackType
+    public enum statAffected
     {
-        Regular, Buff, Debuff, Heal, Run
+        Health, Speed, Attack, Defense
     }
 
     // Variables
     public string moveName;
     public int damage;
     public AttributeDatabase.Attribute damageType;
-    public attackType effect;
+    public statAffected stat;
 
     // Default Constructor
     public Move()
@@ -25,16 +25,16 @@ public class Move
         this.moveName = "-";
         this.damage = 0;
         this.damageType = AttributeDatabase.Attribute.Normal;
-        this.effect = attackType.Regular;
+        this.stat = statAffected.Health;
     }
 
     // Constructor
 
-    public Move(string moveName, int damage, AttributeDatabase.Attribute damageType, attackType effect)
+    public Move(string moveName, int damage, AttributeDatabase.Attribute damageType, statAffected stat)
     {
         this.moveName = moveName;
         this.damage = damage;
         this.damageType = damageType;
-        this.effect = effect;
+        this.stat = stat;
     }
 }

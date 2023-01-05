@@ -110,6 +110,7 @@ public class HUDManager : MonoBehaviour
     public void runAway()
     {
         if (cm.gamePaused) return;
-        cm.StartCoroutine(cm.startRound(MovesDatabase.Moves.Run));
+        cm.runAway = true;
+        cm.StartCoroutine(cm.startRound(MovesDatabase.Moves.Empty));
     }
 }

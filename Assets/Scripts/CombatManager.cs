@@ -1,3 +1,4 @@
+using System.Reflection;
 using System;
 using System.Collections;
 using TMPro;
@@ -35,6 +36,8 @@ public class CombatManager : MonoBehaviour
     //Game state
     private bool gameOver = false;
     public bool gamePaused = false;
+
+    public bool runAway = false;
 
    // private bool isPlayerFirst = false;
 
@@ -187,7 +190,7 @@ public class CombatManager : MonoBehaviour
             }
 
             // Move involves attacking
-            if (currentMove.effect == Move.attackType.Regular)
+            if (currentMove.stat == Move.statAffected.Health)
             {
                 weight[i]++;
 
@@ -227,95 +230,78 @@ public class CombatManager : MonoBehaviour
     // Execute a move based on who is using it and on who
     void doMove(MovesDatabase.Moves moveName, Pokemon attacker, Pokemon target)
     {
-        // Set reference to move ding done
+        if(runAway) 
+        {
+            playerRunAway(attacker);
+            return;
+        }
+        // Set reference to move being done
         Move move = MovesDatabase.MovesList[(int)moveName];
 
         // Output to player what move is being used by which pokemon
         dialogue.text = attacker.pokemonName + " used " + move.moveName;
 
-        // Call methods based on the moves effect
-        // Attack, heal, Buff, etc.
-        switch (move.effect)
+        // Call methods based on the moves target stat
+
+        if(move.stat == Move.statAffected.Health)
         {
-            // Increase the user stats
-            case Move.attackType.Buff:
-                // Declare what is being done to player
-                dialogue.text += " and increased it's stats";
-                attacker.buff(move);
-                break;
-
-            // Reduce targets stats
-            case Move.attackType.Debuff:
-                dialogue.text += " and decreased the stats of " 
-                                 + target.pokemonName;
-                target.debuff(move);
-                break;
-
-            // Heal user
-            case Move.attackType.Heal:
-                if (attacker == player)
-                {
-                    if (potionsLeft > 0)
-                    {
-                        potionsLeft--;
-                        dialogue.text = attacker.pokemonName 
-                                        + " used " + move.moveName + " to heal itself. Potions left: " + potionsLeft;
-                        attacker.healthIncrease(move);
-                    }
-                    else
-                    {
-                        dialogue.text = attacker.pokemonName 
-                                        + " tried to use " + move.moveName + " but ran out of uses";
-                    }
-                }
-                else
-                {
-                    dialogue.text = attacker.pokemonName 
-                                    + " used " + move.moveName + " to heal itself.";
-                    attacker.healthIncrease(move);
-                }
-                
-                
-                break;
-
-            // Player tries to escape from the enemy
-            case Move.attackType.Run:
-
-                // 50% chance to succeed
-                Random rand = new Random();
-                if (rand.Next(10) < 5)
-                {
-                    dialogue.text = attacker.pokemonName 
-                                    + " ran away successfully";
-                }
-                else
-                {
-                    dialogue.text = attacker.pokemonName 
-                                    + " could not run away";
-                }
-                break;
-            
-            // Attack the target
-            default:
-            
+            if(move.damage > 0)
+            {
                 dialogue.text += " to attack " + target.pokemonName;
 
                 // 20% Chance to miss
-                if(rand.next(10) < 2)
+                Random rand = new Random();
+                if(rand.Next(10) < 2)
                 {
                     dialogue.text += " but missed";
                 }
                 else
                 {
                     //Check if the target is 0hp after attack
-                    if (target.takeDamage(move.damage, move))
+                    if (target.affectStat(move, attacker.getAttack()))
                     {
                         // End combat
                         gameOver = true;
                     }
                 }
-                break;
+                
+            }
+            else
+            {
+                dialogue.text += " to heal itself";
+                attacker.affectStat(move, attacker.getAttack());
+            }
         }
+        else
+        {
+            if(move.damage > 0)
+            {
+                attacker.affectStat(move, attacker.getAttack());
+            }
+            else
+            {
+                target.affectStat(move, attacker.getAttack());
+            }
+        }
+    }
+
+    void playerRunAway(Pokemon attacker)
+    {
+        // 50% chance to succeed
+        Random rand = new Random();
+        if (rand.Next(10) < 5)
+        {
+            dialogue.text = attacker.pokemonName 
+                    + " ran away successfully";
+        }
+        else
+        {
+            dialogue.text = attacker.pokemonName 
+                        + " could not run away";
+        }
+
+        runAway = false;
+
     }
 
 }

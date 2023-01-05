@@ -13,7 +13,7 @@ public class MovesDatabase : MonoBehaviour
      1. Write the Move name in the public enum Moves
      2. Write New Move( (String)Name, (int)Damage(Negative if healing), 
                        (AttributeDatabase.Attribute) damageType, 
-                       (Move.attackType) Effect)
+                       (Move.statAffected) stat)
     */
 
     // Name of all Moves
@@ -30,12 +30,7 @@ public class MovesDatabase : MonoBehaviour
         Pound,
         Howl,
         SeismicToss,
-        Potion,
-        Run,
-        FirePunch,
-        Tackle,
-        LowKick,
-        DefenseCurl
+        Potion
     }
 
     // A list containing all moves and their data
@@ -43,27 +38,25 @@ public class MovesDatabase : MonoBehaviour
     {
         new Move(),
 
-        new Move("Razor Leaf", 7, AttributeDatabase.Attribute.Grass, Move.attackType.Regular),
+        new Move("Razor Leaf", 7, AttributeDatabase.Attribute.Grass, Move.statAffected.Health),
 
-        new Move("Ember", 7, AttributeDatabase.Attribute.Fire, Move.attackType.Regular),
+        new Move("Ember", 7, AttributeDatabase.Attribute.Fire, Move.statAffected.Health),
 
-        new Move("Water Gun", 7, AttributeDatabase.Attribute.Water, Move.attackType.Regular),
+        new Move("Water Gun", 7, AttributeDatabase.Attribute.Water, Move.statAffected.Health),
 
-        new Move("Growl", 0, AttributeDatabase.Attribute.Normal, Move.attackType.Debuff),
+        new Move("Growl", -1, AttributeDatabase.Attribute.Normal, Move.statAffected.Attack),
 
-        new Move("Dragon Dance", 0, AttributeDatabase.Attribute.Normal, Move.attackType.Buff),
+        new Move("Dragon Dance", 1, AttributeDatabase.Attribute.Normal, Move.statAffected.Speed),
 
-        new Move("Scratch", 3, AttributeDatabase.Attribute.Normal, Move.attackType.Regular),
+        new Move("Scratch", 3, AttributeDatabase.Attribute.Normal, Move.statAffected.Health),
 
-        new Move("Pound", 3, AttributeDatabase.Attribute.Normal, Move.attackType.Regular),
+        new Move("Pound", 3, AttributeDatabase.Attribute.Normal, Move.statAffected.Health),
 
-        new Move("Howl", 0, AttributeDatabase.Attribute.Normal, Move.attackType.Debuff),
+        new Move("Howl", 1, AttributeDatabase.Attribute.Normal, Move.statAffected.Attack),
 
-        new Move("Seismic Toss", 7, AttributeDatabase.Attribute.Fight, Move.attackType.Regular),
+        new Move("Seismic Toss", 7, AttributeDatabase.Attribute.Fight, Move.statAffected.Health),
 
-        new Move("Potion", 20, AttributeDatabase.Attribute.Normal, Move.attackType.Heal),
-
-        new Move("Run", 0, AttributeDatabase.Attribute.Normal, Move.attackType.Run)
+        new Move("Potion", -20, AttributeDatabase.Attribute.Normal, Move.statAffected.Health),
     };
 
 }
