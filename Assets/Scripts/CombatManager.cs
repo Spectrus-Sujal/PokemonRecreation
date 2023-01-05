@@ -230,7 +230,7 @@ public class CombatManager : MonoBehaviour
     // Execute a move based on who is using it and on who
     void doMove(MovesDatabase.Moves moveName, Pokemon attacker, Pokemon target)
     {
-        if(runAway) 
+        if(runAway && attacker == player) 
         {
             playerRunAway(attacker);
             return;
@@ -276,10 +276,12 @@ public class CombatManager : MonoBehaviour
         {
             if(move.damage > 0)
             {
+                dialogue.text += " to increase it's " + move.stat;
                 attacker.affectStat(move, attacker.getAttack());
             }
             else
             {
+                dialogue.text += " to decrease"+ target.pokemonName + "s " + move.stat;
                 target.affectStat(move, attacker.getAttack());
             }
         }
