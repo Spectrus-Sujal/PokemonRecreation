@@ -297,12 +297,22 @@ public class CombatManager : MonoBehaviour
             
             // Attack the target
             default:
+            
                 dialogue.text += " to attack " + target.pokemonName;
-                //Check if the target is 0hp after attack
-                if (target.takeDamage(move.damage, move))
+
+                // 20% Chance to miss
+                if(rand.next(10) < 2)
                 {
-                    // End combat
-                    gameOver = true;
+                    dialogue.text += " but missed";
+                }
+                else
+                {
+                    //Check if the target is 0hp after attack
+                    if (target.takeDamage(move.damage, move))
+                    {
+                        // End combat
+                        gameOver = true;
+                    }
                 }
                 break;
         }
