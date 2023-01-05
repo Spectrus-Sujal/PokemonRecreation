@@ -30,7 +30,8 @@ public class MovesDatabase : MonoBehaviour
         Pound,
         Howl,
         SeismicToss,
-        Potion
+        Potion,
+        DragonPulse
     }
 
     // A list containing all moves and their data
@@ -46,7 +47,7 @@ public class MovesDatabase : MonoBehaviour
 
         new Move("Growl", -1, AttributeDatabase.Attribute.Normal, Move.statAffected.Attack),
 
-        new Move("Dragon Dance", 1, AttributeDatabase.Attribute.Normal, Move.statAffected.Speed),
+        new Move("Dragon Dance", 1, AttributeDatabase.Attribute.Dragon, Move.statAffected.Speed),
 
         new Move("Scratch", 3, AttributeDatabase.Attribute.Normal, Move.statAffected.Health),
 
@@ -57,6 +58,8 @@ public class MovesDatabase : MonoBehaviour
         new Move("Seismic Toss", 7, AttributeDatabase.Attribute.Fight, Move.statAffected.Health),
 
         new Move("Potion", -20, AttributeDatabase.Attribute.Normal, Move.statAffected.Health),
+
+        new Move("DragonPulse", 9, AttributeDatabase.Attribute.Dragon, Move.statAffected.Health)
     };
 
 }

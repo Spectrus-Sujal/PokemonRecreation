@@ -281,7 +281,7 @@ public class CombatManager : MonoBehaviour
             }
             else
             {
-                dialogue.text += " to decrease"+ target.pokemonName + "s " + move.stat;
+                dialogue.text += " to decrease "+ target.pokemonName + "s " + move.stat;
                 target.affectStat(move, attacker.getAttack());
             }
         }

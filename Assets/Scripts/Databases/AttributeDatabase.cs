@@ -20,7 +20,7 @@ public class AttributeDatabase : MonoBehaviour
     // Used to reference that move from AttributeList
     public enum Attribute
     {
-        Fire, Water, Grass, Normal, Fight, Ghost
+        Fire, Water, Grass, Normal, Fight, Ghost, Dragon
     }
 
     // List used by scripts to assign and access attributes
@@ -31,7 +31,8 @@ public class AttributeDatabase : MonoBehaviour
         new Attributes(Attribute.Grass, Attribute.Fire, Attribute.Water),
         new Attributes(Attribute.Normal, Attribute.Fight, Attribute.Ghost),
         new Attributes(Attribute.Fight, Attribute.Normal, Attribute.Ghost),
-        new Attributes(Attribute.Ghost, Attribute.Fire, Attribute.Fight)
+        new Attributes(Attribute.Ghost, Attribute.Fire, Attribute.Fight),
+        new Attributes(Attribute.Dragon, Attribute.Dragon, Attribute.Dragon),
     };
 
     // Return if attributes are weak to others
