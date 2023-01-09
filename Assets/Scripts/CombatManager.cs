@@ -170,11 +170,17 @@ public class CombatManager : MonoBehaviour
             return;
         }
 
+        MovesDatabase.Moves[] moves = new MovesDatabase.Moves[4];
+        moves[0] = attacker.move1;
+        moves[1] = attacker.move2;
+        moves[2] = attacker.move3;
+        moves[3] = attacker.move4;
+
         // Go through all other moves
         for (int i = 0; i < 4; i++)
         {
             // Get the move currently being checked
-            Move currentMove = MovesDatabase.MovesList[(int)attacker.moves[i]];
+            Move currentMove = MovesDatabase.MovesList[(int)moves[i]];
 
             // Move is effective against player
             if (target.isWeakTo(currentMove.damageType))
@@ -196,7 +202,7 @@ public class CombatManager : MonoBehaviour
 
                 for(int j = 0; j < 4; j++)
                 {
-                    Move otherMove = MovesDatabase.MovesList[(int)attacker.moves[j]];
+                    Move otherMove = MovesDatabase.MovesList[(int)moves[j]];
                     if (currentMove.damage > otherMove.damage)
                     {
                         weight[i]++;
@@ -220,7 +226,7 @@ public class CombatManager : MonoBehaviour
         }
 
         // Set highest priority to chosen move
-        MovesDatabase.Moves moveChosen = attacker.moves[heaviest];
+        MovesDatabase.Moves moveChosen = moves[heaviest];
 
         // Execute the move
         doMove(moveChosen, attacker, target);  
@@ -268,8 +274,17 @@ public class CombatManager : MonoBehaviour
             }
             else
             {
-                dialogue.text += " to heal itself";
-                attacker.affectStat(move, attacker.getAttack());
+                if (potionsLeft > 0)
+                {
+                    potionsLeft--;
+                    dialogue.text += " to heal itself. Uses left: " + potionsLeft;
+                    attacker.affectStat(move, attacker.getAttack());
+                }
+                else
+                {
+                    dialogue.text += " but you ran out of uses";
+                }
+               
             }
         }
         else

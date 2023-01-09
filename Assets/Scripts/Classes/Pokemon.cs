@@ -23,8 +23,11 @@ public class Pokemon : ScriptableObject
     public int defense;
 
     private int currentHealth;
-
-    public MovesDatabase.Moves[] moves;
+    
+    public MovesDatabase.Moves move1;
+    public MovesDatabase.Moves move2;
+    public MovesDatabase.Moves move3;
+    public MovesDatabase.Moves move4;
 
     // Player Side
     public Sprite backPose;
@@ -43,12 +46,11 @@ public class Pokemon : ScriptableObject
         this.speed = mon.speed;
         this.attack = mon.attack;
         this.defense = mon.defense;
-
-        this.moves = new MovesDatabase.Moves[4];
-        this.moves[0] = mon.moves[0];
-        this.moves[1] = mon.moves[1];
-        this.moves[2] = mon.moves[2];
-        this.moves[3] = mon.moves[3];
+        
+        this.move1 = mon.move1;
+        this.move2 = mon.move2;
+        this.move3 = mon.move3;
+        this.move4 = mon.move4;
 
         this.backPose = mon.backPose;
         this.frontPose = mon.frontPose;
@@ -68,12 +70,11 @@ public class Pokemon : ScriptableObject
         this.speed = speed;
         this.attack = attack;
         this.defense = defense;
-
-        this.moves = new MovesDatabase.Moves[4];
-        this.moves[0] = one;
-        this.moves[1] = two;
-        this.moves[2] = three;
-        this.moves[3] = four;
+        
+        this.move1 = one;
+        this.move2 = two;
+        this.move3 = three;
+        this.move4 = four;
 
         this.backPose = back;
         this.frontPose = front;
