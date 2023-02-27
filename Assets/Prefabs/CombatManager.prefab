@@ -54,6 +54,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 46bf2b4580020eb40948a19971315c2b, type: 2}
   - {fileID: 11400000, guid: b8942fad6e7e6894389bd4199878fd5d, type: 2}
   - {fileID: 11400000, guid: 62b8a322a0902e04a96ec4a6dcccf2ea, type: 2}
-  - {fileID: 11400000, guid: 3150ded7d9e66d04391f55c04ae1fd1d, type: 2}
   gamePaused: 0
   runAway: 0

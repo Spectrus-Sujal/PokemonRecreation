@@ -40,10 +40,10 @@ public class HUDManager : MonoBehaviour
         player = cm.getPlayer();
         enemy = cm.getEnemy();
 
-        move1.text = player.moves[0].ToString();
-        move2.text = player.moves[1].ToString();
-        move3.text = player.moves[2].ToString();
-        move4.text = player.moves[3].ToString();
+        move1.text = player.move1.ToString();
+        move2.text = player.move2.ToString();
+        move3.text = player.move3.ToString();
+        move4.text = player.move4.ToString();
 
         playerName.text = player.pokemonName;
         enemyName.text = enemy.pokemonName;
@@ -80,25 +80,25 @@ public class HUDManager : MonoBehaviour
     public void doMove1()
     {
         if (cm.gamePaused) return;
-        cm.StartCoroutine(cm.startRound(player.moves[0]));
+        cm.StartCoroutine(cm.startRound(player.move1));
     }
 
     public void doMove2()
     {
         if (cm.gamePaused) return;
-        cm.StartCoroutine(cm.startRound(player.moves[1]));
+        cm.StartCoroutine(cm.startRound(player.move2));
     }
 
     public void doMove3()
     {
         if (cm.gamePaused) return;
-        cm.StartCoroutine(cm.startRound(player.moves[2]));
+        cm.StartCoroutine(cm.startRound(player.move3));
     }
 
     public void doMove4()
     {
         if (cm.gamePaused) return;
-        cm.StartCoroutine(cm.startRound(player.moves[3]));
+        cm.StartCoroutine(cm.startRound(player.move4));
     }
 
     public void usePotion()
