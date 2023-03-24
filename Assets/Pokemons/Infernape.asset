@@ -18,6 +18,9 @@ MonoBehaviour:
   speed: 16
   attack: 12
   defense: 10
-  moves: 05000000020000000700000008000000
+  move1: 7
+  move2: 2
+  move3: 9
+  move4: 5
   backPose: {fileID: 21300000, guid: f390191564eafb14fa4bffa2f452d21d, type: 3}
   frontPose: {fileID: 21300000, guid: 1b3277e8695992841a4ba4bd3071cb6a, type: 3}
